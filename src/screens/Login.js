@@ -5,19 +5,19 @@ import Icon from "react-native-vector-icons/FontAwesome";
 function Login(props) {
   return (
     <View style={styles.rect}>
-      <View style={styles.rect2}>
-        <Text style={styles.text3}>EMAIL</Text>
-      </View>
-      <Text style={styles.text}>SCOO</Text>
-      <View style={styles.rect3}>
-        <Text style={styles.text2}>SIGN IN WITH APPLE</Text>
-      </View>
       <Icon name="hand-scissors-o" style={styles.icon}></Icon>
-      <Text style={styles.text4}>
+      <Text style={styles.scooText}>SCOO</Text>
+      <Text style={styles.startRidingText}>Start Riding Now</Text>
+      <Text style={styles.comfirmText}>
         By continuing, I confirm that I am 18+ and agree Scoo&#39;s Term Of
         Service and Privacy Policy.
       </Text>
-      <Text style={styles.text5}>Start Riding Now</Text>
+      <View style={styles.emailReact}>
+        <Text style={styles.emailText}>EMAIL</Text>
+      </View>      
+      <View style={styles.signInAppleReact}>
+        <Text style={styles.signInAppleText}>SIGN IN WITH APPLE</Text>
+      </View>                  
       <StatusBar barStyle="light-content"></StatusBar>
     </View>
   );
@@ -28,42 +28,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(15,15,15,1)"
   },
-  rect2: {
-    width: 310,
-    height: 40,
-    backgroundColor: "rgba(230, 230, 230,1)",
-    marginTop: 554,
-    marginLeft: 32
-  },
-  text3: {
-    color: "rgba(0,0,0,1)",
-    fontSize: 16,
-    fontFamily: "roboto-700",
-    marginTop: 12,
-    marginLeft: 132
-  },
-  text: {
-    color: "rgba(255,255,255,1)",
-    fontSize: 30,
-    fontFamily: "roboto-700",
-    letterSpacing: 10,
-    marginTop: -326,
-    marginLeft: 127
-  },
-  rect3: {
-    width: 310,
-    height: 40,
-    backgroundColor: "rgba(230, 230, 230,1)",
-    marginTop: 195,
-    marginLeft: 32
-  },
-  text2: {
-    color: "rgba(0,0,0,1)",
-    fontSize: 16,
-    fontFamily: "roboto-700",
-    marginTop: 12,
-    marginLeft: 73
-  },
   icon: {
     color: "rgba(255,255,255,1)",
     fontSize: 100,
@@ -72,25 +36,62 @@ const styles = StyleSheet.create({
         rotate: "90.00deg"
       }
     ],
-    marginTop: -385,
-    marginLeft: 132
+    marginTop: '40%',
+    alignSelf: 'center'
   },
-  text4: {
+  scooText: {
+    color: "rgba(255,255,255,1)",
+    fontSize: 30,
+    fontFamily: "roboto-700",
+    letterSpacing: 10,
+    marginTop: 40,
+    alignSelf: 'center'
+  },
+  comfirmText: {
     color: "rgba(155,155,155,1)",
     fontSize: 11,
     fontFamily: "roboto-regular",
     letterSpacing: 0,
     textAlign: "left",
-    marginTop: 209,
-    marginLeft: 47
+    marginTop: 150,
+    alignSelf: 'center',
+    width: '85%'
   },
-  text5: {
+  startRidingText: {
     color: "rgba(255,0,0,1)",
     fontSize: 16,
     fontFamily: "roboto-700",
     letterSpacing: 2,
-    marginTop: -123,
-    marginLeft: 102
+    marginTop: 60,
+    alignSelf: 'center'
+  },
+  emailReact: {
+    width: '85%',
+    height: 40,
+    backgroundColor: "rgba(230, 230, 230,1)",
+    marginTop: 30,
+    marginLeft: 32
+  },
+  emailText: {
+    color: "rgba(0,0,0,1)",
+    fontSize: 16,
+    fontFamily: "roboto-700",
+    alignSelf: 'center',
+    marginTop: 10
+  },
+  signInAppleReact: {
+    width: '85%',
+    height: 40,
+    backgroundColor: "rgba(230, 230, 230,1)",
+    marginTop: 10,
+    marginLeft: 32
+  },
+  signInAppleText: {
+    color: "rgba(0,0,0,1)",
+    fontSize: 16,
+    fontFamily: "roboto-700",
+    alignSelf: 'center',
+    marginTop: 10
   }
 });
 

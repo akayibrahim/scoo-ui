@@ -1,23 +1,26 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { withNavigation } from 'react-navigation';
 
-function StartToRide(props) {
+
+function Header(props) {
+  this.props = props;
+  const {headerText} = props;  
   return (
     <View style={[styles.rect, props.style]}>
-      <TouchableOpacity style={styles.button}>
-        <MaterialCommunityIconsIcon
-          name="menu"
-          style={styles.icon}
-        ></MaterialCommunityIconsIcon>
-      </TouchableOpacity>
-      <View style={styles.buttonFiller}>
-        <View style={styles.rect2}>
-          <Text numberOfLines={1} style={styles.text}>
-            SCAN A SCOO
-          </Text>
-        </View>
+      <View style={styles.buttonRow}>
+        <TouchableOpacity style={styles.button} onPress={() => props.navigation.openDrawer()}>
+          <IoniconsIcon name="md-menu" style={styles.icon}></IoniconsIcon>
+        </TouchableOpacity>        
       </View>
+      <View style={styles.headerContainer}>
+          <Text numberOfLines={1} style={styles.text}>
+            {headerText}
+          </Text>
+      </View>
+      <View style={styles.buttonRowFiller}></View>
       <TouchableOpacity style={styles.button2}>
         <MaterialCommunityIconsIcon
           name="dots-vertical"
@@ -30,7 +33,7 @@ function StartToRide(props) {
 
 const styles = StyleSheet.create({
   rect: {
-    backgroundColor: "rgba(0,0,0,1)",
+    backgroundColor: "rgba(0,0,0,0.9)",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -45,33 +48,36 @@ const styles = StyleSheet.create({
     shadowRadius: 1.2
   },
   button: {
-    padding: 11,
-    marginLeft: 5,
-    marginTop: 5
+    padding: 11
   },
   icon: {
     backgroundColor: "transparent",
     color: "#FFFFFF",
-    fontFamily: "Roboto",
+    fontFamily: "roboto-regular",
     fontSize: 24
   },
-  rect2: {
-    alignItems: "center",
-    justifyContent: "flex-start",
-    marginBottom: 19
+  headerContainer: {
+    flex: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10
   },
   text: {
     backgroundColor: "transparent",
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "roboto-regular",
+    fontFamily: "roboto-700",
     lineHeight: 18
   },
-  buttonFiller: {
-    flex: 1,
+  buttonRow: {
+    height: 46,
     flexDirection: "row",
-    alignItems: "flex-end",
-    justifyContent: "center"
+    marginLeft: 5,
+    marginTop: 5
+  },
+  buttonRowFiller: {
+    flex: 1,
+    flexDirection: "row"
   },
   button2: {
     alignItems: "center",
@@ -82,9 +88,9 @@ const styles = StyleSheet.create({
   icon2: {
     backgroundColor: "transparent",
     color: "#FFFFFF",
-    fontFamily: "Roboto",
+    fontFamily: "roboto-regular",
     fontSize: 24
   }
 });
 
-export default StartToRide;
+export default withNavigation(Header);

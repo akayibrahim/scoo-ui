@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     opacity: 0.85
   },
   rect2: {
-    width: 375,
+    width: '100%',
     height: 82,
     backgroundColor: "rgba(15,15,15,1)",
     flexDirection: "row"
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     marginRight: 21,
-    marginLeft: 29,
+    marginLeft: 35,
     marginTop: 26
   }
 });

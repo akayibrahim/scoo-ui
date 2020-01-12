@@ -8,14 +8,14 @@ import CvvEnter from "./CvvEnter";
 function CrediCardInformation(props) {
   return (
     <View style={[styles.rect, props.style]}>
-      <View style={styles.rect2}>
-        <Text style={styles.text}>Credit Card</Text>
+      <View style={styles.cardReact}>
+        <Text style={styles.creditCardText}>Credit Card</Text>
         <CardEnterPlace style={styles.cardEnterPlace}></CardEnterPlace>
       </View>
-      <View style={styles.rect3}>
-        <View style={styles.text2StackRow}>
-          <View style={styles.text2Stack}>
-            <Text style={styles.text2}>Expiration</Text>
+      <View style={styles.expireRect}>
+        <View style={styles.expireTextStackRow}>
+          <View style={styles.expireTextStack}>
+            <Text style={styles.expireText}>Expiration</Text>
             <ExpireDateEnter style={styles.expireDateEnter}></ExpireDateEnter>
           </View>
           <Svg
@@ -29,8 +29,8 @@ function CrediCardInformation(props) {
               d="M1.00 11.92 C2.00 55.92 0.00 59.92 0.00 59.92 C0.00 59.92 0.00 -32.08 1.00 11.92 Z"
             ></Path>
           </Svg>
-          <View style={styles.text3Stack}>
-            <Text style={styles.text3}>CVV</Text>
+          <View style={styles.cvvTextStack}>
+            <Text style={styles.cvvText}>CVV</Text>
             <CvvEnter style={styles.cvvEnter}></CvvEnter>
           </View>
         </View>
@@ -41,12 +41,13 @@ function CrediCardInformation(props) {
 
 const styles = StyleSheet.create({
   rect: {},
-  rect2: {
+  cardReact: {
     width: 322,
     height: 70,
-    backgroundColor: "rgba(208,208,208,1)"
+    backgroundColor: "rgba(208,208,208,1)",
+    alignSelf: 'center'
   },
-  text: {
+  creditCardText: {
     color: "rgba(155,155,155,1)",
     fontSize: 12,
     fontFamily: "roboto-regular",
@@ -57,16 +58,17 @@ const styles = StyleSheet.create({
     width: 288,
     height: 43,
     marginTop: 3,
-    marginLeft: 10
+    alignSelf: 'center'
   },
-  rect3: {
+  expireRect: {
     width: 322,
     height: 70,
     backgroundColor: "rgba(208,208,208,1)",
     flexDirection: "row",
-    marginTop: 10
+    marginTop: 10,
+    alignSelf: 'center'
   },
-  text2: {
+  expireText: {
     top: 0,
     left: 0,
     color: "rgba(155,155,155,1)",
@@ -76,12 +78,12 @@ const styles = StyleSheet.create({
   },
   expireDateEnter: {
     top: 6,
-    left: 0,
+    alignSelf: 'center',
     width: 100,
     height: 43,
     position: "absolute"
   },
-  text2Stack: {
+  expireTextStack: {
     width: 100,
     height: 49,
     marginTop: 7
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginLeft: 46
   },
-  text3: {
+  cvvText: {
     top: 0,
     left: 0,
     color: "rgba(155,155,155,1)",
@@ -106,13 +108,13 @@ const styles = StyleSheet.create({
     height: 43,
     position: "absolute"
   },
-  text3Stack: {
+  cvvTextStack: {
     width: 112,
     height: 49,
     marginLeft: 15,
     marginTop: 7
   },
-  text2StackRow: {
+  expireTextStackRow: {
     height: 56,
     flexDirection: "row",
     flex: 1,

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   text: {
     width: 134,
-    height: 14,
+    height: 16,
     color: "#fff",
     fontSize: 16,
     fontFamily: "roboto-regular",

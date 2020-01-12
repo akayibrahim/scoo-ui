@@ -1,16 +1,29 @@
 import React, { Component } from "react";
 import { StyleSheet, View, StatusBar } from "react-native";
-import RideDetailHeader from "../components/RideDetailHeader";
-import RideDetailMap from "../components/RideDetailMap";
+import Header from "../components/Header";
+import MapView from "react-native-maps";
 import RideDetailMetrics from "../components/RideDetailMetrics";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
+import BaseCss from '../styles/BaseCss.js';
+const baseStyles = BaseCss()
 
 function RideDetailSummary(props) {
+  const headerText = "DETAIL";
   return (
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
-      <RideDetailHeader style={styles.materialHeader1}></RideDetailHeader>
-      <RideDetailMap style={styles.materialMapView}></RideDetailMap>
+      <Header headerText={headerText} style={baseStyles.header}></Header>
+      <MapView
+            provider={MapView.PROVIDER_GOOGLE}
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421
+            }}
+            customMapStyle={[]}
+            style={styles.materialMapView}
+      ></MapView>
       <RideDetailMetrics style={styles.rideDetailMetrics}></RideDetailMetrics>
       <View style={styles.iconRow}>
         <EvilIconsIcon name="star" style={styles.icon}></EvilIconsIcon>
@@ -28,20 +41,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(15,15,15,1)"
   },
-  materialHeader1: {
-    width: 375,
-    height: 56,
-    marginTop: 31
-  },
   materialMapView: {
-    width: 375,
-    height: 399
+    width: '100%',
+    height: '55%'
   },
   rideDetailMetrics: {
-    width: 285,
+    width: '75%',
     height: 80,
-    marginTop: 42,
-    marginLeft: 45
+    marginTop: 50,
+    alignSelf: 'center'
   },
   icon: {
     color: "rgba(255,255,255,1)",
@@ -70,9 +78,8 @@ const styles = StyleSheet.create({
   iconRow: {
     height: 40,
     flexDirection: "row",
-    marginTop: 24,
-    marginLeft: 32,
-    marginRight: 28
+    marginTop: 50,
+    alignSelf: 'center'
   }
 });
 

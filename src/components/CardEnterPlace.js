@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: "#616161",
-    fontFamily: "Roboto",
+    fontFamily: "roboto-regular",
     fontSize: 24,
     paddingLeft: 8
   },

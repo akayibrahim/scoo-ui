@@ -4,29 +4,28 @@ import { StyleSheet, View, TextInput } from "react-native";
 function MaterialUnderlineTextbox(props) {
   return (
     <View style={[styles.container, props.style]}>
-      <TextInput
-        placeholder={props.textInput1 || "Placeholder"}
-        style={styles.inputStyle}
-      ></TextInput>
+      <TextInput placeholderTextColor = "gray" placeholder={"Write a message"} style={styles.inputStyle} 
+      numberOfLines={5} multiline={true}></TextInput>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     flexDirection: "row",
     alignItems: "center",
     borderColor: "#D9D5DC",
-    borderBottomWidth: 1
+    borderWidth: 1
   },
   inputStyle: {
     flex: 1,
-    color: "#000",
+    color: "white",
     alignSelf: "stretch",
-    paddingTop: 16,
+    paddingTop: 10,
     paddingRight: 5,
     paddingBottom: 8,
+    paddingLeft: 10,
     fontSize: 16,
     fontFamily: "roboto-regular",
     lineHeight: 16

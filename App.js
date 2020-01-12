@@ -17,9 +17,9 @@ import PicAfterParking from "./src/screens/PicAfterParking";
 import RideDetailSummary from "./src/screens/RideDetailSummary";
 
 const DrawerNavigation = createDrawerNavigator({
+  Main: Main,
   History: History,
   Login: Login,
-  Main: Main,
   Payment: Payment,
   Register: Register,
   Riding: Riding,
@@ -35,9 +35,9 @@ const StackNavigation = createStackNavigator(
     DrawerNavigation: {
       screen: DrawerNavigation
     },
-    History: History,
-    Login: Login,
     Main: Main,
+    History: History,
+    Login: Login,    
     Payment: Payment,
     Register: Register,
     Riding: Riding,
@@ -55,13 +55,13 @@ const StackNavigation = createStackNavigator(
 const AppContainer = createAppContainer(StackNavigation);
 
 function App() {
-  const [isLoadingComplete, setLoadingComplete] = useState(false);
+  const [isLoadingComplete, setLoadingComplete] = useState(false);  
   if (!isLoadingComplete) {
     return (
       <AppLoading
         startAsync={loadResourcesAsync}
         onError={handleLoadingError}
-        onFinish={() => handleFinishLoading(setLoadingComplete)}
+        onFinish={() => handleFinishLoading(setLoadingComplete)}        
       />
     );
   } else {

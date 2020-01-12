@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(15,15,15,1)"
   },
   rect1: {
-    width: 330,
+    width: '90%',
     height: 427,
     backgroundColor: "rgba(15,15,15,1)",
     borderColor: "rgba(255,255,255,1)",
@@ -33,13 +33,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "roboto-regular",
     marginTop: -500,
-    marginLeft: 88
+    alignSelf: 'center'
   },
   icon: {
     color: "rgba(255,255,255,1)",
     fontSize: 60,
-    marginTop: 557,
-    marginLeft: 158
+    marginTop: 600,
+    alignSelf: 'center'
   }
 });
 

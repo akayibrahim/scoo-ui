@@ -1,58 +1,58 @@
 import React, { Component } from "react";
 import { StyleSheet, View, StatusBar, Text } from "react-native";
-import SettingHeader from "../components/SettingHeader";
+import Header from "../components/Header";
 import FirstNameEnter from "../components/FirstNameEnter";
 import LastNameEnter from "../components/LastNameEnter";
 import PhoneNumberInput from "../components/PhoneNumberInput";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
+import BaseCss from '../styles/BaseCss.js';
+const baseStyles = BaseCss()
 
 function Setting(props) {
+  const headerText = "SETTING";
   return (
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
-      <SettingHeader style={styles.settingHeader}></SettingHeader>
+      <Header headerText={headerText} style={baseStyles.header}></Header>
       <Text style={styles.text}>1.0.0.v</Text>
-      <FirstNameEnter
-        textInput1=""
-        style={styles.firstNameEnter}
-      ></FirstNameEnter>
+      <FirstNameEnter style={styles.firstNameEnter}></FirstNameEnter>
       <LastNameEnter style={styles.lastNameEnter}></LastNameEnter>
       <PhoneNumberInput style={styles.phoneNumberInput}></PhoneNumberInput>
       <View style={styles.rect2}>
         <View style={styles.text2Row}>
-          <Text style={styles.text2}>Rental Aggrement</Text>
-          <MaterialIconsIcon
+          <Text style={styles.text2}>Rental Aggrement</Text>          
+        </View>
+        <MaterialIconsIcon
             name="chevron-right"
             style={styles.icon}
           ></MaterialIconsIcon>
-        </View>
       </View>
       <View style={styles.rect3}>
         <View style={styles.text3Row}>
-          <Text style={styles.text3}>Charger Aggrement</Text>
-          <MaterialIconsIcon
-            name="chevron-right"
-            style={styles.icon2}
-          ></MaterialIconsIcon>
+          <Text style={styles.text3}>Charger Aggrement</Text>          
         </View>
+        <MaterialIconsIcon
+            name="chevron-right"
+            style={styles.icon}
+          ></MaterialIconsIcon>
       </View>
       <View style={styles.rect4}>
         <View style={styles.text4Row}>
-          <Text style={styles.text4}>Term Of Service</Text>
-          <MaterialIconsIcon
-            name="chevron-right"
-            style={styles.icon3}
-          ></MaterialIconsIcon>
+          <Text style={styles.text4}>Term Of Service</Text>          
         </View>
+        <MaterialIconsIcon
+            name="chevron-right"
+            style={styles.icon}
+          ></MaterialIconsIcon>
       </View>
       <View style={styles.rect5}>
         <View style={styles.text5Row}>
-          <Text style={styles.text5}>Privacy Policy</Text>
-          <MaterialIconsIcon
-            name="chevron-right"
-            style={styles.icon4}
-          ></MaterialIconsIcon>
+          <Text style={styles.text5}>Privacy Policy</Text>          
         </View>
+        <MaterialIconsIcon
+            name="chevron-right"
+            style={styles.icon}
+          ></MaterialIconsIcon>
       </View>
       <View style={styles.rect6}>
         <Text style={styles.text6}>Log Out</Text>
@@ -66,20 +66,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(15,15,15,1)"
   },
-  settingHeader: {
-    width: 375,
-    height: 56,
-    marginTop: 31
-  },
   text: {
     color: "rgba(155,155,155,1)",
     fontSize: 16,
     fontFamily: "roboto-regular",
     marginTop: 667,
-    marginLeft: 168
+    textAlign: 'center'
   },
   firstNameEnter: {
-    width: 330,
+    width: '90%',
     height: 43,
     borderColor: "rgba(255,255,255,1)",
     borderWidth: 1,
@@ -87,7 +82,7 @@ const styles = StyleSheet.create({
     marginLeft: 22
   },
   lastNameEnter: {
-    width: 330,
+    width: '90%',
     height: 43,
     borderColor: "rgba(255,255,255,1)",
     borderWidth: 1,
@@ -95,7 +90,7 @@ const styles = StyleSheet.create({
     marginLeft: 22
   },
   phoneNumberInput: {
-    width: 330,
+    width: '90%',
     height: 43,
     borderColor: "rgba(255,255,255,1)",
     borderWidth: 1,
@@ -103,7 +98,7 @@ const styles = StyleSheet.create({
     marginLeft: 22
   },
   rect2: {
-    width: 375,
+    width: '100%',
     height: 46,
     backgroundColor: "rgba(0,0,0,1)",
     flexDirection: "row",
@@ -120,7 +115,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     height: 30,
     width: 40,
-    marginLeft: 164
+    marginEnd: 0,
+    marginTop: 6
   },
   text2Row: {
     height: 30,
@@ -131,7 +127,7 @@ const styles = StyleSheet.create({
     marginTop: 8
   },
   rect3: {
-    width: 375,
+    width: '100%',
     height: 46,
     backgroundColor: "rgba(0,0,0,1)",
     flexDirection: "row",
@@ -143,13 +139,6 @@ const styles = StyleSheet.create({
     fontFamily: "roboto-regular",
     marginTop: 6
   },
-  icon2: {
-    color: "rgba(128,128,128,1)",
-    fontSize: 30,
-    height: 30,
-    width: 30,
-    marginLeft: 152
-  },
   text3Row: {
     height: 30,
     flexDirection: "row",
@@ -159,7 +148,7 @@ const styles = StyleSheet.create({
     marginTop: 8
   },
   rect4: {
-    width: 375,
+    width: '100%',
     height: 46,
     backgroundColor: "rgba(0,0,0,1)",
     flexDirection: "row",
@@ -171,13 +160,6 @@ const styles = StyleSheet.create({
     fontFamily: "roboto-regular",
     marginTop: 6
   },
-  icon3: {
-    color: "rgba(128,128,128,1)",
-    fontSize: 30,
-    height: 30,
-    width: 40,
-    marginLeft: 181
-  },
   text4Row: {
     height: 30,
     flexDirection: "row",
@@ -187,7 +169,7 @@ const styles = StyleSheet.create({
     marginTop: 8
   },
   rect5: {
-    width: 375,
+    width: '100%',
     height: 46,
     backgroundColor: "rgba(0,0,0,1)",
     flexDirection: "row",
@@ -199,13 +181,6 @@ const styles = StyleSheet.create({
     fontFamily: "roboto-regular",
     marginTop: 6
   },
-  icon4: {
-    color: "rgba(128,128,128,1)",
-    fontSize: 30,
-    height: 30,
-    width: 40,
-    marginLeft: 195
-  },
   text5Row: {
     height: 30,
     flexDirection: "row",
@@ -215,7 +190,7 @@ const styles = StyleSheet.create({
     marginTop: 8
   },
   rect6: {
-    width: 375,
+    width: '100%',
     height: 46,
     backgroundColor: "rgba(0,0,0,1)",
     marginTop: 2

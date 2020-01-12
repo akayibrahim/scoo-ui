@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, StatusBar } from "react-native";
-import StartToRide from "../components/StartToRide";
+import Header from "../components/Header";
 import ScooCodeButton from "../components/ScooCodeButton";
 import FlashButton from "../components/FlashButton";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import BaseCss from '../styles/BaseCss.js';
+const baseStyles = BaseCss()
 
 function ScanScoo(props) {
+  const headerText = "SCAN A SCOO";
   return (
     <View style={styles.rect}>
-      <StartToRide style={styles.startToRide}></StartToRide>
+      <Header headerText={headerText} style={baseStyles.header}></Header>
       <Text style={styles.text}>Scan QR code on the Scoo to start ride</Text>
       <View style={styles.scooCodeButtonRow}>
         <ScooCodeButton style={styles.scooCodeButton}></ScooCodeButton>
@@ -27,17 +30,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(15,15,15,1)"
   },
-  startToRide: {
-    width: 375,
-    height: 56,
-    marginTop: 31
-  },
   text: {
     color: "rgba(255,255,255,1)",
     fontSize: 18,
     fontFamily: "roboto-regular",
     marginTop: 113,
-    marginLeft: 30
+    alignSelf: 'center'
   },
   scooCodeButton: {
     width: 100,
@@ -54,8 +52,7 @@ const styles = StyleSheet.create({
     height: 36,
     flexDirection: "row",
     marginTop: 444,
-    marginLeft: 65,
-    marginRight: 68
+    alignSelf: 'center'
   },
   rect2: {
     width: 330,
@@ -65,13 +62,13 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderStyle: "dashed",
     marginTop: -412,
-    marginLeft: 23
+    alignSelf: 'center'
   },
   text2: {
     color: "rgba(155,155,155,1)",
     fontSize: 20,
     fontFamily: "roboto-700",
-    lineHeight: 14,
+    lineHeight: 20,
     marginTop: -374,
     marginLeft: 72
   },
@@ -79,7 +76,7 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,1)",
     fontSize: 50,
     marginTop: -141,
-    marginLeft: 163
+    alignSelf: 'center'
   }
 });
 

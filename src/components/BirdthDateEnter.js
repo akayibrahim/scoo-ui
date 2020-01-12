@@ -4,7 +4,7 @@ import { StyleSheet, View, TextInput } from "react-native";
 function BirdthDateEnter(props) {
   return (
     <View style={[styles.rect, props.style]}>
-      <TextInput placeholder="Birdth Date" style={styles.textInput}></TextInput>
+      <TextInput placeholderTextColor = "gray" placeholder="Birdth Date" style={styles.textInput}></TextInput>
     </View>
   );
 }

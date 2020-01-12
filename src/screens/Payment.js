@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import { StyleSheet, View, StatusBar, Text } from "react-native";
-import PaymentHeader from "../components/PaymentHeader";
+import Header from "../components/Header";
 import AddCreditCard from "../components/AddCreditCard";
 import CrediCardInformation from "../components/CrediCardInformation";
+import BaseCss from '../styles/BaseCss.js';
+const baseStyles = BaseCss()
 
 function Payment(props) {
+  const headerText = "PAYMENT";
   return (
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
-      <PaymentHeader style={styles.paymentHeader}></PaymentHeader>
-      <AddCreditCard style={styles.addCreditCard}></AddCreditCard>
-      <Text style={styles.text}>Payment Methods</Text>
-      <Text style={styles.text2}>3 TL to unlock + 0.75/min.</Text>
-      <CrediCardInformation
-        style={styles.crediCardInformation}
-      ></CrediCardInformation>
+      <Header headerText={headerText} style={baseStyles.header}></Header>
+      <Text style={styles.paymentMethodText}>Payment Methods</Text>
+      <AddCreditCard style={styles.addCreditCard}></AddCreditCard>            
+      <CrediCardInformation style={styles.crediCardInformation}></CrediCardInformation>
+      <Text style={styles.priceText}>3 TL to unlock + 0.75/min.</Text>
     </View>
   );
 }
@@ -24,39 +25,35 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(15,15, 15,1)"
   },
-  paymentHeader: {
-    width: 375,
-    height: 56,
-    marginTop: 31
-  },
   addCreditCard: {
-    width: 375,
+    width: '100%',
     height: 45,
     backgroundColor: "rgba(0,0,0,0.9)",
-    marginTop: 37
+    marginTop: 10
   },
-  text: {
+  paymentMethodText: {
     color: "rgba(117,113,113,1)",
     fontSize: 14,
     fontFamily: "roboto-regular",
     lineHeight: 14,
     textAlign: "left",
-    marginTop: -68,
+    marginTop: 10,
     marginLeft: 14
   },
-  text2: {
+  priceText: {
     color: "rgba(117,113,113,1)",
     fontSize: 16,
     fontFamily: "roboto-regular",
-    lineHeight: 14,
-    marginTop: 601,
-    marginLeft: 80
+    lineHeight: 16,
+    bottom: 100,
+    position: 'absolute',
+    alignSelf: 'center'
   },
   crediCardInformation: {
-    width: 322,
+    width: '100%',
     height: 150,
-    marginTop: -535,
-    marginLeft: 27
+    marginTop: 20,
+    alignSelf: 'center'
   }
 });
 

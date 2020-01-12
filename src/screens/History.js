@@ -1,17 +1,22 @@
 import React, { Component } from "react";
 import { StyleSheet, View, StatusBar } from "react-native";
-import HistoryHeader from "../components/HistoryHeader";
+import Header from "../components/Header";
 import RideHistory from "../components/RideHistory";
 import NoRideHistory from "../components/NoRideHistory";
+import BaseCss from '../styles/BaseCss.js';
+const baseStyles = BaseCss()
 
 function History(props) {
+  const headerText = "HISTORY";
+  const day = "TODAY, 16:22";
+  const time = "8 DK";
+  const price = "6 TL";
+  const distance = "2 KM";
   return (
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
-      <HistoryHeader style={styles.historyHeader}></HistoryHeader>
-      <RideHistory style={styles.rideHistory}></RideHistory>
-      <RideHistory style={styles.rideHistory2}></RideHistory>
-      <RideHistory style={styles.rideHistory3}></RideHistory>
+      <Header headerText={headerText} style={baseStyles.header}></Header>
+      <RideHistory style={styles.rideHistory} day={day} time={time} price={price} distance={distance}></RideHistory>
       <NoRideHistory style={styles.noRideHistory}></NoRideHistory>
     </View>
   );
@@ -22,28 +27,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(15,15,15,1)"
   },
-  historyHeader: {
-    width: 375,
-    height: 56,
-    marginTop: 31
-  },
   rideHistory: {
-    width: 375,
+    width: '100%',
     height: 82
   },
-  rideHistory2: {
-    width: 375,
-    height: 82,
-    marginTop: 1
-  },
-  rideHistory3: {
-    width: 375,
-    height: 82,
-    marginTop: 1
-  },
   noRideHistory: {
-    width: 375,
-    height: 73
+    width: '100%',
+    height: 82
   }
 });
 
