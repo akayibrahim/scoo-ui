@@ -8,13 +8,13 @@ import Header from "../components/Header";
 import BaseCss from '../styles/BaseCss.js';
 const baseStyles = BaseCss()
 
-function Register(props) {
-  const headerText = "REGISTER";
+function Register(props) {    
+  const headerText = "REGISTER";  
   return (
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
       <Header headerText={headerText} style={baseStyles.header}></Header>
-      <FirstNameEnter textInput1="" style={styles.firstNameEnter}></FirstNameEnter>
+      <FirstNameEnter style={styles.firstNameEnter}></FirstNameEnter>
       <LastNameEnter style={styles.lastNameEnter}></LastNameEnter>
       <BirdthDateEnter style={styles.birdthDateEnter}></BirdthDateEnter>
       <RegisterButton style={styles.registerButton}></RegisterButton>            

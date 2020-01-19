@@ -5,8 +5,7 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 import { withNavigation } from 'react-navigation';
 
 
-function Header(props) {
-  this.props = props;
+function Header(props) {  
   const {headerText} = props;  
   return (
     <View style={[styles.rect, props.style]}>

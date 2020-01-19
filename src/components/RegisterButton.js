@@ -1,12 +1,32 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
-function RegisterButton(props) {
+function RegisterButton(props) {    
   return (
-    <TouchableOpacity style={[styles.button, props.style]}>
+    <TouchableOpacity style={[styles.button, props.style]} onPress={() => this.userRegister()}>
       <Text style={styles.text}>SAVE</Text>
     </TouchableOpacity>
   );
+}
+
+userRegister = async (props) => {      
+  fetch(this.state.host + '/user/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "firstName": this.state.firstName,
+        "lastName": this.state.lastName
+      })
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.state = { user: responseJson };      
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 const styles = StyleSheet.create({

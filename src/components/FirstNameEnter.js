@@ -6,7 +6,8 @@ const baseStyles = BaseCss()
 function FirstNameEnter(props) {
   return (
     <View style={[styles.rect, props.style]}>
-      <TextInput placeholderTextColor = "gray" placeholder="First Name" style={baseStyles.settingTextInput}></TextInput>
+      <TextInput placeholderTextColor = "gray" placeholder="First Name" style={baseStyles.settingTextInput}
+      onChangeText={(firstName) => this.state = ({firstName})} value={this.state.firstName}></TextInput>
     </View>
   );
 }

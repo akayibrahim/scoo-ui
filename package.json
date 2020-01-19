@@ -27,5 +27,12 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^7.0.0"
+  },
+  "ios": {
+    "infoPlist": {
+      "NSAppTransportSecurity" : {
+        "NSAllowsArbitraryLoads" : true
+      }
+    }
   }
 }

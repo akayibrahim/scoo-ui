@@ -17,7 +17,7 @@ import PicAfterParking from "./src/screens/PicAfterParking";
 import RideDetailSummary from "./src/screens/RideDetailSummary";
 
 const DrawerNavigation = createDrawerNavigator({
-  Main: Main,
+  Register: Register,Main: Main,
   History: History,
   Login: Login,
   Payment: Payment,
@@ -56,6 +56,7 @@ const AppContainer = createAppContainer(StackNavigation);
 
 function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);  
+  this.state = {host: 'http://localhost:8080'}
   if (!isLoadingComplete) {
     return (
       <AppLoading
