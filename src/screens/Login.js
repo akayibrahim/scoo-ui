@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     fontFamily: "roboto-regular",
     letterSpacing: 0,
     textAlign: "left",
-    marginTop: 150,
+    marginTop: 80,
     alignSelf: 'center',
     width: '85%'
   },

@@ -1,9 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 import RingButton from "./RingButton";
 import Svg, { Path } from "react-native-svg";
 
 function VehicleDetails(props) {
+  const {id} = props;
+  const [detail, setDetail] = useState({});
+  useEffect(() => {
+    const getScooDetail = async () => {
+      const request = "id=" + id;
+      await fetchUtil(this.state.host + this.state.getScooterApi, request, this.state.requestUrl)          
+          .then((response) => { setDetail(response); })
+          .catch((error) => { console.error(error); });
+    }
+    getScooDetail();
+  }, []);
+
   return (
     <View style={[styles.rect, props.style]}>
       <View style={styles.imageStackColumnRow}>
@@ -15,7 +27,7 @@ function VehicleDetails(props) {
               style={styles.image}
             ></Image>
             <View style={styles.rect2}>
-              <Text style={styles.text4}>C-001</Text>
+              <Text style={styles.text4}>{detail.label}</Text>
             </View>
           </View>
           <RingButton style={styles.ringButton}></RingButton>
@@ -32,7 +44,7 @@ function VehicleDetails(props) {
           ></Path>
         </Svg>
         <View style={styles.text2Column}>
-          <Text style={styles.text2}>BATTERY : % 60</Text>
+          <Text style={styles.text2}>BATTERY : % {detail.lastBattery}</Text>
           <Text style={styles.text3}>DISTANCE : 300 meter</Text>
           <Text style={styles.text}>
             3 TL to unlock + {"\n"}0.75 TL / 1 min
@@ -60,7 +72,7 @@ const styles = StyleSheet.create({
   rect2: {
     top: 5,
     left: 0,
-    width: 40,
+    width: 55,
     height: 21,
     backgroundColor: "rgba(74,74,74,1)",
     position: "absolute"

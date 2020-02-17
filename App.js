@@ -18,16 +18,16 @@ import RideDetailSummary from "./src/screens/RideDetailSummary";
 
 const DrawerNavigation = createDrawerNavigator({
   Login: Login, // OK EXCL(SIGN_WITH_APPLE & WHATSAPP_PHONE_VERIFY)
-  Main: Main, // OK EXCL(VisibilityOfDetail)
+  Main: Main, // OK EXCL(VisibilityOfDetail & Distance)
   History: History, // OK  
   Payment: Payment, // NOK
   Register: Register, // OK EXCL(ChangeFields & DatePickerCannotInput)
   Riding: Riding, // NOK
   ScanScoo: ScanScoo, // OK EXCL(SCAN_QR & FIND_SCOO & START_RIDING)
-  Setting: Setting, // OK EXCL(SAVE & LOG_OUT & TERMS)
+  Setting: Setting, // OK EXCL(save & Logout & Terms)
   ContactUs: ContactUs, // NOK
   PicAfterParking: PicAfterParking, // NOK
-  RideDetailSummary: RideDetailSummary // OK EXCL(MAPS_ROUTE & FEEDBACK)
+  RideDetailSummary: RideDetailSummary // OK EXCL(MAPS_ROUTE & Feedback)
 });
 
 const StackNavigation = createStackNavigator(
@@ -64,7 +64,7 @@ function App() {
     canLoginApi: '/user/canLogin', // OK
     feedbackApi: '/user/feedback',
     addScooterApi: '/scooter/add', // ADMIN
-    getScooterApi: '/scooter/get',
+    getScooterApi: '/scooter/get', // OK
     getClosestScootersApi: '/scooter/getClosestScooters', // OK
     addPictureApi: '/riding/addPicture',
     finishRidingApi: '/riding/finish',

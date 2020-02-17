@@ -6,11 +6,13 @@ import RideButton from "../components/RideButton";
 import VehicleDetails from "../components/VehicleDetails";
 import BaseCss from '../styles/BaseCss.js';
 import FetchUtil from "../util/FetchUtil";
+import Icon from "react-native-vector-icons/FontAwesome";
 const baseStyles = BaseCss()
 
 function Main(props) {  
   const headerText = "SCOO";
   const [showVehicleDetail, setShowVehicleDetail] = useState(false);
+  const [id, setId] = useState(0);
   const [scooters, setScooters] = useState([]);
 
   useEffect(() => {
@@ -43,17 +45,17 @@ function Main(props) {
             showsUserLocation={true}
             followsUserLocation={true}
           >
-          { 
+          {
             scooters.map((scoo, i) =>
               <MapView.Marker coordinate={{latitude: scoo.lastLatitude, longitude: scoo.lastLongitude,}} key={i}
-               onPress={() => {setShowVehicleDetail(!showVehicleDetail)}}>
-                <Image source={require('../assets/images/mi365.jpg')} style={{ width: 40, height: 40 }} />
+               onPress={() => {setShowVehicleDetail(!showVehicleDetail); setId(scoo.id);}}>
+                <Image source={require('../assets/images/mi365.jpg')} style={{ width: 30, height: 40 }} />
               </MapView.Marker>
             )
-          }          
+          }
           </MapView>
           <RideButton style={styles.rideButton}></RideButton>
-          {showVehicleDetail ? <VehicleDetails style={styles.vehicleDetails}></VehicleDetails> : null}
+          {showVehicleDetail ? <VehicleDetails id={id} style={styles.vehicleDetails}></VehicleDetails> : null}
         </View>
       </View>
     </View>
