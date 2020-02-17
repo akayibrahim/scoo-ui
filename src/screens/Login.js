@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, StatusBar } from "react-native";
+import { TouchableHighlight, StyleSheet, View, Text, StatusBar } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { withNavigation } from 'react-navigation';
+import { AsyncStorage } from "react-native";
 
-function Login(props) {
+function Login(props) {  
+  isSignin(props);  
   return (
     <View style={styles.rect}>
       <Icon name="hand-scissors-o" style={styles.icon}></Icon>
@@ -12,16 +15,29 @@ function Login(props) {
         By continuing, I confirm that I am 18+ and agree Scoo&#39;s Term Of
         Service and Privacy Policy.
       </Text>
-      <View style={styles.emailReact}>
-        <Text style={styles.emailText}>EMAIL</Text>
-      </View>      
+      <TouchableHighlight onPress={() => props.navigation.navigate('Register')}>
+        <View style={styles.emailReact}>
+          <Text style={styles.emailText}>EMAIL</Text>
+        </View>
+      </TouchableHighlight>      
       <View style={styles.signInAppleReact}>
         <Text style={styles.signInAppleText}>SIGN IN WITH APPLE</Text>
-      </View>                  
+      </View>
       <StatusBar barStyle="light-content"></StatusBar>
     </View>
   );
 }
+
+const isSignin = async (props) => {  
+  const value = await AsyncStorage.getItem('token')
+  .catch((error) => {
+    console.log(error);
+  });
+  if (value == 'true') {
+    props.navigation.navigate('Main');
+    return;
+  }    
+};
 
 const styles = StyleSheet.create({
   rect: {
@@ -95,4 +111,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Login;
+export default withNavigation(Login);

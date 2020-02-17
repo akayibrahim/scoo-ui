@@ -15,20 +15,25 @@ function Riding(props) {
       <Header headerText={headerText} style={baseStyles.header}></Header>
       <View style={baseStyles.mapViewStackRow}>
         <View style={baseStyles.mapViewStack}>
-          <MapView
+        <MapView
             provider={MapView.PROVIDER_GOOGLE}
             initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421
+              latitude: 41.0082,
+              longitude: 28.9784,
+              latitudeDelta: 0.001,
+              longitudeDelta: 0.001
             }}
             customMapStyle={[]}
             style={baseStyles.mapView}
-          ></MapView>
+            showsMyLocationButton={true}
+            showsUserLocation={true}
+            followsUserLocation={true}
+          >
+            <MapView.Marker coordinate={{ latitude: 41.0082, longitude: 28.9784 }}  
+            title={"Your Location"} draggable />
+          </MapView>
           <EndRidingButton style={styles.endRidingButton}></EndRidingButton>
-          <RidingInformation style={styles.ridingInformation}></RidingInformation>
-          <Icon name="my-location" style={styles.icon}></Icon>
+          <RidingInformation style={styles.ridingInformation}></RidingInformation>          
         </View>
       </View>
       <StatusBar barStyle="light-content"></StatusBar>

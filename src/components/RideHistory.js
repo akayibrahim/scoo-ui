@@ -1,21 +1,24 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { TouchableHighlight, StyleSheet, View, Text } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
+import { withNavigation } from 'react-navigation';
 
 function RideHistory(props) {
-  const {day, distance, time, price} = props;  
+  const {day, distance, time, price} = props;
   return (
-    <View style={styles.rect2}>        
-      <Text style={styles.textDay}>{day}</Text>
-      <FontAwesomeIcon name="map-marker" style={styles.iconMap}></FontAwesomeIcon>
-      <Text style={styles.textDistance}>{distance}</Text>
-      <MaterialCommunityIconsIcon name="clock" style={styles.iconClock}></MaterialCommunityIconsIcon>
-      <Text style={styles.textTime}>{time}</Text>
-      <Text style={styles.textPrice}>{price}</Text>
-      <MaterialIconsIcon name="navigate-next" style={styles.iconDetail}></MaterialIconsIcon>
-    </View>
+    <TouchableHighlight day={day} distance={distance} time={time} price={price} onPress={() => props.navigation.navigate('RideDetailSummary', {day: day, price: price, time:time, distance:distance})}>
+      <View style={styles.rect2}>
+        <Text style={styles.textDay}>{day}</Text>
+        <FontAwesomeIcon name="map-marker" style={styles.iconMap}></FontAwesomeIcon>
+        <Text style={styles.textDistance}>{distance}</Text>
+        <MaterialCommunityIconsIcon name="clock" style={styles.iconClock}></MaterialCommunityIconsIcon>
+        <Text style={styles.textTime}>{time}</Text>
+        <Text style={styles.textPrice}>{price}</Text>
+        <MaterialIconsIcon name="navigate-next" style={styles.iconDetail}></MaterialIconsIcon>
+      </View>
+    </TouchableHighlight>    
   );
 }
 
@@ -23,7 +26,9 @@ const styles = StyleSheet.create({
   rect2: {
     width: '100%',
     height: 82,
-    backgroundColor: "rgba(230, 230, 230,1)"
+    backgroundColor: "rgba(230, 230, 230,1)",    
+    borderBottomColor: 'black',
+    borderBottomWidth: 1.5
   },
   textDay: {
     color: "#121212",
@@ -90,4 +95,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RideHistory;
+export default withNavigation(RideHistory);

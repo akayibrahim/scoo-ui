@@ -17,17 +17,17 @@ import PicAfterParking from "./src/screens/PicAfterParking";
 import RideDetailSummary from "./src/screens/RideDetailSummary";
 
 const DrawerNavigation = createDrawerNavigator({
-  Register: Register,Main: Main,
-  History: History,
-  Login: Login,
-  Payment: Payment,
-  Register: Register,
-  Riding: Riding,
-  ScanScoo: ScanScoo,
-  Setting: Setting,
-  ContactUs: ContactUs,
-  PicAfterParking: PicAfterParking,
-  RideDetailSummary: RideDetailSummary
+  Login: Login, // OK EXCL(SIGN_WITH_APPLE & WHATSAPP_PHONE_VERIFY)
+  Main: Main, // OK EXCL(VisibilityOfDetail)
+  History: History, // OK  
+  Payment: Payment, // NOK
+  Register: Register, // OK EXCL(ChangeFields & DatePickerCannotInput)
+  Riding: Riding, // NOK
+  ScanScoo: ScanScoo, // OK EXCL(SCAN_QR & FIND_SCOO & START_RIDING)
+  Setting: Setting, // OK EXCL(SAVE & LOG_OUT & TERMS)
+  ContactUs: ContactUs, // NOK
+  PicAfterParking: PicAfterParking, // NOK
+  RideDetailSummary: RideDetailSummary // OK EXCL(MAPS_ROUTE & FEEDBACK)
 });
 
 const StackNavigation = createStackNavigator(
@@ -55,8 +55,32 @@ const StackNavigation = createStackNavigator(
 const AppContainer = createAppContainer(StackNavigation);
 
 function App() {
-  const [isLoadingComplete, setLoadingComplete] = useState(false);  
-  this.state = {host: 'http://localhost:8080'}
+  const [isLoadingComplete, setLoadingComplete, userId] = useState(false);  
+  this.state = {
+    host: 'http://localhost:8080',
+    registerUserApi: '/user/register', // OK
+    startRidingApi: '/riding/start', // OK
+    ridingHistoryApi: '/riding/history', // OK
+    canLoginApi: '/user/canLogin', // OK
+    feedbackApi: '/user/feedback',
+    addScooterApi: '/scooter/add', // ADMIN
+    getScooterApi: '/scooter/get',
+    getClosestScootersApi: '/scooter/getClosestScooters', // OK
+    addPictureApi: '/riding/addPicture',
+    finishRidingApi: '/riding/finish',
+    ridingDetail: '/riding/detail',
+    startRidingApi: '/riding/start',
+    problemReportApi: '/problem/report',
+    userId: '1',
+    history: [],
+    user: {},
+    firstName: "ibrahim",
+    lastName: "Akay",
+    email: "email",
+    birthDate: "1987-09-27",
+    requestJson: 'json',
+    requestUrl: 'x-www-form-urlencoded'
+  }
   if (!isLoadingComplete) {
     return (
       <AppLoading
@@ -65,8 +89,8 @@ function App() {
         onFinish={() => handleFinishLoading(setLoadingComplete)}        
       />
     );
-  } else {
-    return isLoadingComplete ? <AppContainer /> : <AppLoading />;
+  } else {        
+    return isLoadingComplete ? <AppContainer /> : <AppLoading />;    
   }
 }
 async function loadResourcesAsync() {

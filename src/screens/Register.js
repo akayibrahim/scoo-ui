@@ -1,22 +1,24 @@
 import React, { Component } from "react";
-import { StyleSheet, View, StatusBar } from "react-native";
+import { TextInput, StyleSheet, View, StatusBar } from "react-native";
 import FirstNameEnter from "../components/FirstNameEnter";
 import LastNameEnter from "../components/LastNameEnter";
 import BirdthDateEnter from "../components/BirdthDateEnter";
+import EmailEnter from "../components/EmailEnter";
 import RegisterButton from "../components/RegisterButton";
 import Header from "../components/Header";
 import BaseCss from '../styles/BaseCss.js';
 const baseStyles = BaseCss()
 
 function Register(props) {    
-  const headerText = "REGISTER";  
+  const headerText = "REGISTER";
   return (
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
-      <Header headerText={headerText} style={baseStyles.header}></Header>
+      <Header headerText={headerText} isBack={true} backScreen={'Login'} style={baseStyles.header}></Header>
       <FirstNameEnter style={styles.firstNameEnter}></FirstNameEnter>
       <LastNameEnter style={styles.lastNameEnter}></LastNameEnter>
       <BirdthDateEnter style={styles.birdthDateEnter}></BirdthDateEnter>
+      <EmailEnter style={styles.emailEnter}></EmailEnter>
       <RegisterButton style={styles.registerButton}></RegisterButton>            
     </View>
   );
@@ -44,6 +46,14 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   birdthDateEnter: {
+    width: '90%',
+    height: 43,
+    borderColor: "rgba(255,255,255,1)",
+    borderWidth: 1,
+    marginTop: 27,
+    marginLeft: 20
+  },
+  emailEnter: {
     width: '90%',
     height: 43,
     borderColor: "rgba(255,255,255,1)",

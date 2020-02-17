@@ -1,3 +1,7 @@
 # Add any directories, files, or patterns you don't want to be tracked by version control
 node_modules
 .expo
+
+#https://www.toptal.com/react-native/react-native-camera-tutorial
+#<RideHistory style={styles.rideHistory} day={this.state.history[0].startDateTime} time={this.state.history[0].totalTime} price={this.state.history[0].totalPrice} distance={this.state.history[0].totalDistance}></RideHistory>
+#https://oblador.github.io/react-native-vector-icons/

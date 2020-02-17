@@ -4,15 +4,21 @@ import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { withNavigation } from 'react-navigation';
 
-
 function Header(props) {  
-  const {headerText} = props;  
+  const {headerText, isBack, backScreen} = props;
   return (
     <View style={[styles.rect, props.style]}>
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.openDrawer()}>
-          <IoniconsIcon name="md-menu" style={styles.icon}></IoniconsIcon>
-        </TouchableOpacity>        
+        {isBack == true ?
+          <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate(backScreen)}>
+            <IoniconsIcon name="md-arrow-back" style={styles.icon}></IoniconsIcon>
+          </TouchableOpacity>
+        : 
+          <TouchableOpacity style={styles.button} onPress={() => props.navigation.openDrawer()}>          
+            <IoniconsIcon name="md-menu" style={styles.icon}></IoniconsIcon>
+          </TouchableOpacity>          
+        }
+        
       </View>
       <View style={styles.headerContainer}>
           <Text numberOfLines={1} style={styles.text}>
@@ -88,7 +94,8 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     color: "#FFFFFF",
     fontFamily: "roboto-regular",
-    fontSize: 24
+    fontSize: 24,
+    display: "none"
   }
 });
 

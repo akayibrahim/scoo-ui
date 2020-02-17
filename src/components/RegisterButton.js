@@ -1,32 +1,62 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import { withNavigation } from 'react-navigation';
+import FetchUtil from "../util/FetchUtil";
+import { AsyncStorage } from "react-native";
 
-function RegisterButton(props) {    
+function RegisterButton(props) {
   return (
-    <TouchableOpacity style={[styles.button, props.style]} onPress={() => this.userRegister()}>
+    <TouchableOpacity style={[styles.button, props.style]} onPress={() => this.userRegister2(props)}>
       <Text style={styles.text}>SAVE</Text>
     </TouchableOpacity>
   );
 }
 
-userRegister = async (props) => {      
-  fetch(this.state.host + '/user/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        "firstName": this.state.firstName,
-        "lastName": this.state.lastName
-      })
+userRegister2 = async (props) => {
+  const request = JSON.stringify({
+    firstName: this.state.firstName,
+    lastName: this.state.lastName,
+    email: this.state.email,
+    id: this.state.userId,
+    birthDate: this.state.birthDate
+  });
+  console.log(request);
+  const response = await fetchUtil(this.state.host + this.state.registerUserApi, request, this.state.requestJson).then((response) => {
+    setToken('true');
+    props.navigation.navigate('Main');
+  });
+}
+
+const setToken = async (token) => {
+  await AsyncStorage.setItem('token', token)
+  .catch((error)=>{
+    console.log(error);
+ }); 
+};
+
+userRegisterOld = async (props) => {
+  fetch(this.state.host + this.state.registerUserApi, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'credentials': "omit",
+    },
+    body: JSON.stringify({
+      "firstName": this.state.firstName,
+      "lastName": this.state.lastName,
+      "email": this.state.email,
+      "id": this.state.userId
     })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.state = { user: responseJson };      
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  })
+  .then((response) => response.json())
+  .then((responseJson) => {    
+    this.state = { user: responseJson };
+    props.navigation.navigate('Main');
+  })
+  .catch((error) => {
+    console.error(error);
+  }); 
 }
 
 const styles = StyleSheet.create({
@@ -55,4 +85,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RegisterButton;
+export default withNavigation(RegisterButton);

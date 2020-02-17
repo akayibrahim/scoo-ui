@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import { withNavigation } from 'react-navigation';
 
-function RideButton(props) {
+function RideButton(props) {  
   return (
-    <TouchableOpacity style={[styles.button, props.style]}>
+    <TouchableOpacity style={[styles.button, props.style]} onPress={() => props.navigation.navigate('ScanScoo')}>
       <Text style={styles.text}>RIDE</Text>
     </TouchableOpacity>
   );
@@ -35,4 +36,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RideButton;
+export default withNavigation(RideButton);

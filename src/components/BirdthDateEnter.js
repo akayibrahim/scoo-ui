@@ -1,13 +1,17 @@
-import React, { Component } from "react";
-import { StyleSheet, View, TextInput } from "react-native";
+import React, { Component, useState } from "react";
+import { TouchableHighlight, StyleSheet, View, TextInput } from "react-native";
+import DatePicker from 'react-native-datepicker'
+import BaseCss from '../styles/BaseCss.js';
+const baseStyles = BaseCss()
 
-function BirdthDateEnter(props) {
+function BirdthDateEnter(props) {  
   return (
     <View style={[styles.rect, props.style]}>
-      <TextInput placeholderTextColor = "gray" placeholder="Birdth Date" style={styles.textInput}
-      onChangeText={(birthDate) => this.state = ({birthDate})} value={this.state.birthDate}></TextInput>
+      <TextInput style={baseStyles.settingTextInput} value={this.state.birthDate}></TextInput>
+      <DatePicker mode={'date'} format="YYYY-MM-DD" minDate="1950-01-01" maxDate="2100-01-01" confirmBtnText="Confirm" 
+        cancelBtnText="Cancel" hideText={true} onDateChange={(date) => this.state = {birthDate: date}}/>
     </View>
-  );
+  );      
 }
 
 const styles = StyleSheet.create({
@@ -20,16 +24,12 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    color: "#000",
     alignSelf: "stretch",
     marginBottom: 10,
     marginLeft: 10,
     paddingTop: 16,
     paddingRight: 5,
-    paddingBottom: 8,
-    fontSize: 16,
-    fontFamily: "roboto-regular",
-    lineHeight: 16
+    paddingBottom: 8
   }
 });
 

@@ -4,6 +4,7 @@ import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 function RideDetailMetrics(props) {
+  const {distance, time, dateTime, price} = props;
   return (
     <View style={[styles.rect, props.style]}>
       <View style={styles.iconRow}>
@@ -11,16 +12,16 @@ function RideDetailMetrics(props) {
           name="map-marker"
           style={styles.icon}
         ></FontAwesomeIcon>
-        <Text style={styles.text}>2 KM</Text>
+        <Text style={styles.text}>{distance}</Text>
         <MaterialCommunityIconsIcon
           name="clock"
           style={styles.icon2}
         ></MaterialCommunityIconsIcon>
-        <Text style={styles.text2}>8 min</Text>
+        <Text style={styles.text2}>{time}</Text>
         <FontAwesomeIcon name="dollar" style={styles.icon3}></FontAwesomeIcon>
-        <Text style={styles.text3}>3</Text>
+        <Text style={styles.text3}>{price}</Text>
       </View>
-      <Text style={styles.text4}>27/12/2014 18.20</Text>
+      <Text style={styles.text4}>{dateTime}</Text>
     </View>
   );
 }

@@ -1,15 +1,28 @@
-import React, { Component } from "react";
-import { StyleSheet, View, StatusBar, Text } from "react-native";
+import React, { Component, useEffect, useState } from "react";
+import { Image, Alert, StyleSheet, View, StatusBar, Text } from "react-native";
 import Header from "../components/Header";
 import MapView from "react-native-maps";
 import RideButton from "../components/RideButton";
-import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import VehicleDetails from "../components/VehicleDetails";
 import BaseCss from '../styles/BaseCss.js';
+import FetchUtil from "../util/FetchUtil";
 const baseStyles = BaseCss()
 
-function Main(props) {
+function Main(props) {  
   const headerText = "SCOO";
+  const [showVehicleDetail, setShowVehicleDetail] = useState(false);
+  const [scooters, setScooters] = useState([]);
+
+  useEffect(() => {
+    const closestScooters = async () => {
+      const request = "latitude=1.0&longitude=1.0";
+      await fetchUtil(this.state.host + this.state.getClosestScootersApi, request, this.state.requestUrl)          
+          .then((response) => { setScooters(response); })
+          .catch((error) => { console.error(error); });
+    }
+    closestScooters();
+  }, []);
+
   return (
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
@@ -19,23 +32,51 @@ function Main(props) {
           <MapView
             provider={MapView.PROVIDER_GOOGLE}
             initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421
+              latitude: 41.0082,
+              longitude: 28.9784,
+              latitudeDelta: 0.0040,
+              longitudeDelta: 0.0040
             }}
             customMapStyle={[]}
             style={baseStyles.mapView}
-          ></MapView>
+            showsMyLocationButton={true}
+            showsUserLocation={true}
+            followsUserLocation={true}
+          >
+          { 
+            scooters.map((scoo, i) =>
+              <MapView.Marker coordinate={{latitude: scoo.lastLatitude, longitude: scoo.lastLongitude,}} key={i}
+               onPress={() => {setShowVehicleDetail(!showVehicleDetail)}}>
+                <Image source={require('../assets/images/mi365.jpg')} style={{ width: 40, height: 40 }} />
+              </MapView.Marker>
+            )
+          }          
+          </MapView>
           <RideButton style={styles.rideButton}></RideButton>
-          <MaterialIconsIcon name="my-location" style={styles.icon}></MaterialIconsIcon>
-          <VehicleDetails style={styles.vehicleDetails}></VehicleDetails>
-          <MaterialIconsIcon name="location-searching" style={styles.icon2}></MaterialIconsIcon>
+          {showVehicleDetail ? <VehicleDetails style={styles.vehicleDetails}></VehicleDetails> : null}
         </View>
       </View>
     </View>
   );
 }
+
+openPanel = () => {
+  this.state = { swipeablePanelActive: true };
+};
+
+closePanel = () => {
+  this.state = { swipeablePanelActive: false };
+};
+
+findCoordinates = (props) => {
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      this.props.position = {position: {longitude: position.longitude, latitude: position.latitude}};            
+    },
+    error => Alert.alert(error.message),
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+  );
+};
 
 const styles = StyleSheet.create({
   rect: {

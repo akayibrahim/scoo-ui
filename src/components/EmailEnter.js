@@ -3,11 +3,11 @@ import { StyleSheet, View, TextInput } from "react-native";
 import BaseCss from '../styles/BaseCss.js';
 const baseStyles = BaseCss()
 
-function FirstNameEnter(props) {
+function EmailEnter(props) {
   return (
     <View style={[styles.rect, props.style]}>
-      <TextInput placeholderTextColor = "gray" placeholder="First Name" style={baseStyles.settingTextInput}
-      onChangeText={(firstName) => this.state = ({firstName})}>{this.state.firstName}</TextInput>
+      <TextInput placeholderTextColor = "gray" placeholder="Email" style={baseStyles.settingTextInput}
+      onChangeText={(email) => this.state = ({email})}>{this.state.email}</TextInput>
     </View>
   );
 }
@@ -22,4 +22,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FirstNameEnter;
+export default EmailEnter;

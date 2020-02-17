@@ -9,20 +9,11 @@ function RidingInformation(props) {
     <View style={[styles.rect, props.style]}>
       <View style={styles.rect2}>
         <View style={styles.iconRow}>
-          <FontAwesomeIcon
-            name="map-marker"
-            style={styles.icon}
-          ></FontAwesomeIcon>
+          <FontAwesomeIcon name="map-marker" style={styles.icon}></FontAwesomeIcon>
           <Text style={styles.text}>2 KM</Text>
-          <MaterialCommunityIconsIcon
-            name="clock"
-            style={styles.icon2}
-          ></MaterialCommunityIconsIcon>
+          <MaterialCommunityIconsIcon name="clock" style={styles.icon2}></MaterialCommunityIconsIcon>
           <Text style={styles.text2}>8 min</Text>
-          <IoniconsIcon
-            name="ios-battery-charging"
-            style={styles.icon3}
-          ></IoniconsIcon>
+          <IoniconsIcon name="ios-battery-charging" style={styles.icon3}></IoniconsIcon>
           <Text style={styles.text3}>44%</Text>
         </View>
       </View>

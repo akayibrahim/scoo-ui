@@ -25,12 +25,12 @@ import { StyleSheet } from "react-native";
     settingTextInput: {
       flex: 1,
       color: "white",
-      alignSelf: "center",    
-      marginLeft: 10,    
+      alignSelf: "center",
+      marginLeft: 10,
       paddingLeft: 5,
       fontSize: 16,
       fontFamily: "roboto-regular",
-      lineHeight: 16    
+      lineHeight: 19
     }
   }
 

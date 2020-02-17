@@ -7,7 +7,7 @@ function LastNameEnter(props) {
   return (
     <View style={[styles.rect, props.style]}>
       <TextInput placeholderTextColor = "gray" placeholder="Last Name" style={baseStyles.settingTextInput}
-      onChangeText={(lastName) => this.state = ({lastName})} value={this.state.lastName}></TextInput>
+      onChangeText={(lastName) => this.state = ({lastName})}>{this.state.lastName}</TextInput>
     </View>
   );
 }
