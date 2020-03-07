@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { TouchableOpacity, StyleSheet, View, Text, StatusBar } from "react-native";
+import { AsyncStorage, TouchableOpacity, StyleSheet, View, Text, StatusBar } from "react-native";
 import Header from "../components/Header";
 import ScooCodeButton from "../components/ScooCodeButton";
 import FlashButton from "../components/FlashButton";
@@ -10,15 +10,19 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import FetchUtil from "../util/FetchUtil";
 
 function ScanScoo(props) {
   const headerText = "SCAN A SCOO";
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [scooters, setScooters] = useState({});
+  const qrScooterId = 1;
   // this.takePicture();
-  const handleBarCodeScanned = ({ type, data }) => {
+  let handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    console.log(`Bar code with type ${type} and data ${data} has been scanned!`);
+    getScooDetailAndStartRiding(props, this.qrScooterId, scooters, setScooters);
   };
   
   if (hasPermission === null) {
@@ -27,6 +31,7 @@ function ScanScoo(props) {
   if (hasPermission === false) {
      <Text>No access to camera</Text>;
   }
+
   return (    
     <View style={styles.rect}>    
       <View style={styles.bar}>
@@ -41,20 +46,51 @@ function ScanScoo(props) {
         <ScooCodeButton style={styles.scooCodeButton}></ScooCodeButton>
         <FlashButton style={styles.flashButton}></FlashButton>
       </View>      
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={styles.barcadeScanner}
-      />
+      <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={styles.barcadeScanner}/>      
       {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+      <Button title={'Tap to Scan Again'} onPress={() => this.getScooDetailAndStartRiding(props, qrScooterId, scooters, setScooters)} />
     </View>
   );
 }
 
-const Button = ({ onPress, children }) => (
-  <TouchableOpacity style={styles.button} onPress={onPress}>
-    <Text style={styles.text}>{children}</Text>
+const Button = ({ onPress, title }) => (
+  <TouchableOpacity onPress={onPress}>
+    <Text style={styles.tapToScan}>{title}</Text>
   </TouchableOpacity>
 );
+
+getScooDetailAndStartRiding = async (props, qrScooterId, scooters, setScooters) => {
+  const request = "id=" + qrScooterId;
+  const scooDetail = await fetchUtil(this.state.host + this.state.getScooterApi, request, this.state.requestUrl)          
+      .then((response) => { setScooters(response); })
+      .catch((error) => { console.error(error); });
+  
+  const requestRiding = JSON.stringify({
+    riding: {
+      lockStatus: "UNLOCKED",
+      scooterId: qrScooterId,
+      userId: this.state.userId
+    },
+    ridingCoordinates: {
+      latitude: scooters.latitude,
+      longitude: scooters.longitude,
+      status: "START"
+    }
+  });
+  await fetchUtil(this.state.host + this.state.startRidingApi, requestRiding, this.state.requestJson)
+      .then((response) => { 
+        AsyncStorage.setItem('ridingStarted', 'true')
+        .then(() => {          
+          AsyncStorage.setItem('ridingStartTime', JSON.stringify(new Date()));
+          console.log("Riding started!");
+          props.navigation.navigate('Riding');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      })
+      .catch((error) => { console.error(error); });  
+}
 
 takePicture = async () => {
   await this.getPermissionAsync();
@@ -125,6 +161,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     alignSelf: 'center'
   },
+  tapToScan: {
+    color: "rgba(255,255,255,1)",
+    fontSize: 18,
+    fontFamily: "roboto-regular",
+    marginTop: 20,
+    alignSelf: 'center'
+  },
   scooCodeButton: {
     width: 100,
     height: 36,
@@ -148,7 +191,7 @@ const styles = StyleSheet.create({
     borderColor: "rgba(255,255,255,1)",
     borderWidth: 3,
     borderStyle: "dashed",
-    marginTop: 5,
+    marginTop: 20,
     alignSelf: 'center'
   },
   price: {
@@ -156,7 +199,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "roboto-700",
     lineHeight: 20,
-    marginTop: 10,
+    marginTop: 20,
     marginLeft: 72
   },
   icon: {

@@ -11,7 +11,7 @@ function Payment(props) {
   return (
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
-      <Header headerText={headerText} style={baseStyles.header}></Header>
+      <Header headerText={headerText} isBack={true} backScreen={'Main'} style={baseStyles.header}></Header>
       <Text style={styles.paymentMethodText}>Payment Methods</Text>
       <AddCreditCard style={styles.addCreditCard}></AddCreditCard>            
       <CrediCardInformation style={styles.crediCardInformation}></CrediCardInformation>

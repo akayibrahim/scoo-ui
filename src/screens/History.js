@@ -27,7 +27,7 @@ function History(props) {
         })
         .then((response) => {
           if (response.status == 400) {
-            Alert.alert(response);
+            console.log(response);            
             return;
           }      
           return response.json();  
@@ -47,7 +47,7 @@ function History(props) {
   return (    
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
-      <Header headerText={headerText} style={baseStyles.header}></Header>
+      <Header headerText={headerText} isBack={true} backScreen={'Main'} style={baseStyles.header}></Header>
       <RideHistory style={styles.rideHistory} day={day} time={time} price={price} distance={distance}></RideHistory>
       { 
         this.state.history == null ? <NoRideHistory style={styles.noRideHistory}></NoRideHistory> :

@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
   const baseStyles = {
     header: {
       width: '100%',
-      height: '6.7%',
-      marginTop: 31
+      height: '7%',
+      marginTop: 20
     },
     mapView: {
       height: '100%',

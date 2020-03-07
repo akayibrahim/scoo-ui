@@ -1,25 +1,53 @@
-import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { AsyncStorage, StyleSheet, View, Text } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 
-function RidingInformation(props) {
+function RidingInformation(props) {  
+  const [duration, setDuration] = useState("");  
+  
+  useEffect(() => {
+    const i_id = setInterval(() => {
+      getAsyncDuration(setDuration);
+    }, 1000);
+    return () => {
+      clearInterval(i_id);
+    }
+  },[]);  
+
   return (
     <View style={[styles.rect, props.style]}>
       <View style={styles.rect2}>
         <View style={styles.iconRow}>
           <FontAwesomeIcon name="map-marker" style={styles.icon}></FontAwesomeIcon>
-          <Text style={styles.text}>2 KM</Text>
+          <Text style={styles.text}>{this.state.ridingDistnace}</Text>
           <MaterialCommunityIconsIcon name="clock" style={styles.icon2}></MaterialCommunityIconsIcon>
-          <Text style={styles.text2}>8 min</Text>
+          <Text style={styles.text2}>{duration}</Text>
           <IoniconsIcon name="ios-battery-charging" style={styles.icon3}></IoniconsIcon>
-          <Text style={styles.text3}>44%</Text>
+          <Text style={styles.text3}>{this.state.ridingScooterBattery}%</Text>
         </View>
       </View>
     </View>
   );
 }
+
+function pad(n) {
+  return (n < 10) ? ("0" + n) : n;
+}
+
+getAsyncDuration = async (setDuration) => {
+  const value = await AsyncStorage.getItem('ridingStartTime')
+  .catch((error) => {
+    console.log(error);
+  });
+  const startDate = Math.floor(new Date(JSON.parse(value)).getTime());
+  const now = Math.floor(new Date().getTime());
+  var diff = Math.floor((now - startDate) / (60 * 24));  
+  var time = pad(Math.floor(diff /60)) + ':' +pad(diff % 60 );
+  //console.log(time);
+  setDuration(time);
+};
 
 const styles = StyleSheet.create({
   rect: {

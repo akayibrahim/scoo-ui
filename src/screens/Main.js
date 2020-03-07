@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { Image, Alert, StyleSheet, View, StatusBar, Text } from "react-native";
+import { AsyncStorage, Image, Alert, StyleSheet, View, StatusBar, Text } from "react-native";
 import Header from "../components/Header";
 import MapView from "react-native-maps";
 import RideButton from "../components/RideButton";
@@ -14,7 +14,7 @@ function Main(props) {
   const [showVehicleDetail, setShowVehicleDetail] = useState(false);
   const [id, setId] = useState(0);
   const [scooters, setScooters] = useState([]);
-
+  isSignin(props);
   useEffect(() => {
     const closestScooters = async () => {
       const request = "latitude=1.0&longitude=1.0";
@@ -22,7 +22,7 @@ function Main(props) {
           .then((response) => { setScooters(response); })
           .catch((error) => { console.error(error); });
     }
-    closestScooters();
+    closestScooters();    
   }, []);
 
   return (
@@ -33,25 +33,20 @@ function Main(props) {
         <View style={baseStyles.mapViewStack}>
           <MapView
             provider={MapView.PROVIDER_GOOGLE}
-            initialRegion={{
-              latitude: 41.0082,
-              longitude: 28.9784,
-              latitudeDelta: 0.0040,
-              longitudeDelta: 0.0040
-            }}
+            initialRegion={this.state.userCoordinates}
             customMapStyle={[]}
             style={baseStyles.mapView}
             showsMyLocationButton={true}
             showsUserLocation={true}
             followsUserLocation={true}
           >
-          {
-            scooters.map((scoo, i) =>
-              <MapView.Marker coordinate={{latitude: scoo.lastLatitude, longitude: scoo.lastLongitude,}} key={i}
-               onPress={() => {setShowVehicleDetail(!showVehicleDetail); setId(scoo.id);}}>
-                <Image source={require('../assets/images/mi365.jpg')} style={{ width: 30, height: 40 }} />
-              </MapView.Marker>
-            )
+          {            
+              scooters != undefined ? scooters.map((scoo, i) =>
+                <MapView.Marker coordinate={{latitude: scoo.lastLatitude, longitude: scoo.lastLongitude,}} key={i}
+                onPress={() => {setShowVehicleDetail(!showVehicleDetail); setId(scoo.id);}}>
+                  <Image source={require('../assets/images/mi365.jpg')} style={{ width: 30, height: 40 }} />
+                </MapView.Marker>
+              ) : null
           }
           </MapView>
           <RideButton style={styles.rideButton}></RideButton>
@@ -61,6 +56,27 @@ function Main(props) {
     </View>
   );
 }
+
+const isSignin = async (props) => {  
+  const value = await AsyncStorage.getItem('token')
+  .catch((error) => {
+    console.log(error);
+  });  
+  if (value == 'true') {
+    const ridingStarted = await AsyncStorage.getItem('ridingStarted')
+    .catch((error) => {
+      console.log(error);
+    });
+    if (ridingStarted == 'true') {
+      props.navigation.navigate('Riding');
+    } else {
+      props.navigation.navigate('Main');
+    }        
+  } else {
+    props.navigation.navigate('Login');
+  }
+  return;
+};
 
 openPanel = () => {
   this.state = { swipeablePanelActive: true };
@@ -102,9 +118,9 @@ const styles = StyleSheet.create({
     opacity: 0.9
   },
   vehicleDetails: {
-    top: '10%',
-    width: '80%',
-    height: 150,
+    top: '7%',
+    width: '85%',
+    height: 175,
     position: "absolute",
     elevation: 15,
     shadowOffset: {

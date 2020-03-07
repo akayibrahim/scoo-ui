@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { Linking, StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { withNavigation } from 'react-navigation';
@@ -26,9 +26,9 @@ function Header(props) {
           </Text>
       </View>
       <View style={styles.buttonRowFiller}></View>
-      <TouchableOpacity style={styles.button2}>
+      <TouchableOpacity style={styles.button2} onPress={() => Linking.openURL('https://wa.me/905377885933')}>
         <MaterialCommunityIconsIcon
-          name="dots-vertical"
+          name="whatsapp"
           style={styles.icon2}
         ></MaterialCommunityIconsIcon>
       </TouchableOpacity>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     shadowRadius: 1.2
   },
   button: {
-    padding: 11
+    marginTop: 10
   },
   icon: {
     backgroundColor: "transparent",
@@ -65,14 +65,14 @@ const styles = StyleSheet.create({
     flex: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10
+    marginTop: 5
   },
   text: {
     backgroundColor: "transparent",
     color: "#FFFFFF",
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: "roboto-700",
-    lineHeight: 18
+    lineHeight: 20
   },
   buttonRow: {
     height: 46,
@@ -86,16 +86,14 @@ const styles = StyleSheet.create({
   },
   button2: {
     alignItems: "center",
-    padding: 11,
-    marginRight: 5,
-    marginTop: 5
+    marginTop: 5,
+    marginRight: 5
   },
   icon2: {
     backgroundColor: "transparent",
     color: "#FFFFFF",
     fontFamily: "roboto-regular",
-    fontSize: 24,
-    display: "none"
+    fontSize: 24
   }
 });
 

@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import { AsyncStorage, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { withNavigation } from 'react-navigation';
 
 function EndRidingButton(props) {
   return (
-    <TouchableOpacity style={[styles.button, props.style]}>
+    <TouchableOpacity style={[styles.button, props.style]} 
+    onPress={() => 
+      AsyncStorage.setItem('ridingStarted', 'false').then(() => { AsyncStorage.removeItem('ridingStartTime'); props.navigation.navigate('Main'); }).catch((error) => { console.log(error); }) }>
       <Text style={styles.text}>END RIDING</Text>
     </TouchableOpacity>
   );
@@ -35,4 +38,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default EndRidingButton;
+export default withNavigation(EndRidingButton);

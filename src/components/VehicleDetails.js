@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
   image: {
     top: 0,
     left: 19,
-    width: 88,
-    height: 87,
+    width: 90,
+    height: 90,
     position: "absolute"
   },
   rect2: {
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 24,
     backgroundColor: "rgba(15,15,15,1)",
-    marginTop: 17,
+    marginTop: 23,
     marginLeft: 19
   },
   imageStackColumn: {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   path: {
     width: 1,
-    height: 120,
+    height: 130,
     marginLeft: 22,
     marginTop: 5
   },
@@ -109,27 +109,28 @@ const styles = StyleSheet.create({
     width: 117,
     height: 14,
     color: "rgba(0,0,0,1)",
-    fontSize: 11,
+    fontSize: 13,
     fontFamily: "roboto-700",
-    lineHeight: 14
+    lineHeight: 14,
+    marginTop: 10
   },
   text3: {
     width: 131,
     height: 14,
     color: "rgba(0,0,0,1)",
-    fontSize: 11,
+    fontSize: 13,
     fontFamily: "roboto-700",
     lineHeight: 14,
-    marginTop: 11
+    marginTop: 18
   },
   text: {
     width: 131,
     height: 28,
     color: "rgba(0,0,0,1)",
-    fontSize: 13,
+    fontSize: 15,
     fontFamily: "roboto-700",
     lineHeight: 14,
-    marginTop: 11
+    marginTop: 18
   },
   text2Column: {
     width: 131,
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
   imageStackColumnRow: {
     height: 128,
     flexDirection: "row",
-    marginTop: 10,
+    marginTop: 18,
     marginLeft: 11,
     marginRight: 22
   }

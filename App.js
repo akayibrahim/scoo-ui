@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { createAppContainer } from "react-navigation";
+import { createAppContainer} from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import { createDrawerNavigator } from "react-navigation-drawer";
+import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import History from "./src/screens/History";
@@ -12,22 +12,23 @@ import Register from "./src/screens/Register";
 import Riding from "./src/screens/Riding";
 import ScanScoo from "./src/screens/ScanScoo";
 import Setting from "./src/screens/Setting";
-import ContactUs from "./src/screens/ContactUs";
 import PicAfterParking from "./src/screens/PicAfterParking";
 import RideDetailSummary from "./src/screens/RideDetailSummary";
 
 const DrawerNavigation = createDrawerNavigator({
-  Login: Login, // OK EXCL(SIGN_WITH_APPLE & WHATSAPP_PHONE_VERIFY)
-  Main: Main, // OK EXCL(VisibilityOfDetail & Distance)
-  History: History, // OK  
+  // Login: Login, // OK
+  // Register: Register, // OK EXCL(ChangeFields & DatePickerCannotInput)
+  Main: {screen: Main, navigationOptions: {
+    drawerLabel: "Home"
+  }}, // OK EXCL(VisibilityOfDetail & Distance)
+  // ScanScoo: ScanScoo, // OK
+  // Riding: Riding, // OK
+  // PicAfterParking: PicAfterParking, // NOK
   Payment: Payment, // NOK
-  Register: Register, // OK EXCL(ChangeFields & DatePickerCannotInput)
-  Riding: Riding, // NOK
-  ScanScoo: ScanScoo, // OK EXCL(SCAN_QR & FIND_SCOO & START_RIDING)
-  Setting: Setting, // OK EXCL(save & Logout & Terms)
-  ContactUs: ContactUs, // NOK
-  PicAfterParking: PicAfterParking, // NOK
-  RideDetailSummary: RideDetailSummary // OK EXCL(MAPS_ROUTE & Feedback)
+  History: History, // OK
+  // RideDetailSummary: RideDetailSummary, // OK EXCL(Feedback)
+  Setting: Setting, // OK EXCL(Save & Terms)  
+  // ContactUs: ContactUs // OK
 });
 
 const StackNavigation = createStackNavigator(
@@ -43,7 +44,6 @@ const StackNavigation = createStackNavigator(
     Riding: Riding,
     ScanScoo: ScanScoo,
     Setting: Setting,
-    ContactUs: ContactUs,
     PicAfterParking: PicAfterParking,
     RideDetailSummary: RideDetailSummary
   },
@@ -57,19 +57,17 @@ const AppContainer = createAppContainer(StackNavigation);
 function App() {
   const [isLoadingComplete, setLoadingComplete, userId] = useState(false);  
   this.state = {
-    host: 'http://localhost:8080',
+    host: 'http://18.222.250.64:8080',
     registerUserApi: '/user/register', // OK
-    startRidingApi: '/riding/start', // OK
-    ridingHistoryApi: '/riding/history', // OK
     canLoginApi: '/user/canLogin', // OK
     feedbackApi: '/user/feedback',
-    addScooterApi: '/scooter/add', // ADMIN
     getScooterApi: '/scooter/get', // OK
     getClosestScootersApi: '/scooter/getClosestScooters', // OK
-    addPictureApi: '/riding/addPicture',
+    startRidingApi: '/riding/start', // OK
     finishRidingApi: '/riding/finish',
+    ridingHistoryApi: '/riding/history', // OK
     ridingDetail: '/riding/detail',
-    startRidingApi: '/riding/start',
+    addPictureApi: '/riding/addPicture',
     problemReportApi: '/problem/report',
     userId: '1',
     history: [],
@@ -79,8 +77,17 @@ function App() {
     email: "email",
     birthDate: "1987-09-27",
     requestJson: 'json',
-    requestUrl: 'x-www-form-urlencoded'
+    requestUrl: 'x-www-form-urlencoded',
+    userCoordinates: {
+      latitude: 41.0082,
+      longitude: 28.9784,
+      latitudeDelta: 0.0040,
+      longitudeDelta: 0.0040
+    },
+    ridingDistnace: 0,    
+    ridingScooterBattery: 100
   }
+
   if (!isLoadingComplete) {
     return (
       <AppLoading

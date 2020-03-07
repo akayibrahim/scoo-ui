@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import { AsyncStorage, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { withNavigation } from 'react-navigation';
 import FetchUtil from "../util/FetchUtil";
-import { AsyncStorage } from "react-native";
 
 function RegisterButton(props) {
   return (

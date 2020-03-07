@@ -5,7 +5,7 @@ import { withNavigation } from 'react-navigation';
 import { AsyncStorage } from "react-native";
 
 function Login(props) {  
-  isSignin(props);  
+  isSignin(props);
   return (
     <View style={styles.rect}>
       <Icon name="hand-scissors-o" style={styles.icon}></Icon>
@@ -33,8 +33,17 @@ const isSignin = async (props) => {
   .catch((error) => {
     console.log(error);
   });
+  console.log(value);
   if (value == 'true') {
-    props.navigation.navigate('Main');
+    const ridingStarted = await AsyncStorage.getItem('ridingStarted')
+    .catch((error) => {
+      console.log(error);
+    });
+    if (ridingStarted == 'true') {
+      props.navigation.navigate('Riding');
+    } else {
+      props.navigation.navigate('Main');      
+    }    
     return;
   }    
 };

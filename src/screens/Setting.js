@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, View, StatusBar, Text } from "react-native";
+import { TouchableHighlight, StyleSheet, View, StatusBar, Text } from "react-native";
 import Header from "../components/Header";
 import FirstNameEnter from "../components/FirstNameEnter";
 import LastNameEnter from "../components/LastNameEnter";
 import PhoneNumberInput from "../components/PhoneNumberInput";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import BaseCss from '../styles/BaseCss.js';
+import { AsyncStorage } from "react-native";
 const baseStyles = BaseCss()
 
 function Setting(props) {
@@ -13,7 +14,7 @@ function Setting(props) {
   return (
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
-      <Header headerText={headerText} style={baseStyles.header}></Header>
+      <Header headerText={headerText} isBack={true} backScreen={'Main'} style={baseStyles.header}></Header>
       <Text style={styles.text}>1.0.0.v</Text>
       <FirstNameEnter style={styles.firstNameEnter}></FirstNameEnter>
       <LastNameEnter style={styles.lastNameEnter}></LastNameEnter>
@@ -54,12 +55,21 @@ function Setting(props) {
             style={styles.icon}
           ></MaterialIconsIcon>
       </View>
-      <View style={styles.rect6}>
-        <Text style={styles.text6}>Log Out</Text>
-      </View>
+      <TouchableHighlight onPress={() => logout(props)}>
+        <View style={styles.rect6}>
+          <Text style={styles.text6}>Log Out</Text>
+        </View>
+      </TouchableHighlight>      
     </View>
   );
 }
+
+logout = async (props) => {  
+  await AsyncStorage.removeItem('token').then(() => {
+    console.log("logout");
+    props.navigation.navigate('Login');
+  });
+};
 
 const styles = StyleSheet.create({
   rect: {

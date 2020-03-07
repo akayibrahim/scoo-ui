@@ -1,15 +1,16 @@
 import React, { Component } from "react";
-import { StyleSheet, View, StatusBar } from "react-native";
+import { AsyncStorage, StyleSheet, View, StatusBar } from "react-native";
 import Header from "../components/Header";
 import MapView from "react-native-maps";
 import EndRidingButton from "../components/EndRidingButton";
 import RidingInformation from "../components/RidingInformation";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import BaseCss from '../styles/BaseCss.js';
+import { withNavigation } from 'react-navigation';
 const baseStyles = BaseCss()
 
 function Riding(props) {
-  const headerText = "RIDING";
+  const headerText = "RIDING";  
   return (
     <View style={styles.rect}>
       <Header headerText={headerText} style={baseStyles.header}></Header>
@@ -17,12 +18,7 @@ function Riding(props) {
         <View style={baseStyles.mapViewStack}>
         <MapView
             provider={MapView.PROVIDER_GOOGLE}
-            initialRegion={{
-              latitude: 41.0082,
-              longitude: 28.9784,
-              latitudeDelta: 0.001,
-              longitudeDelta: 0.001
-            }}
+            initialRegion={this.state.userCoordinates}
             customMapStyle={[]}
             style={baseStyles.mapView}
             showsMyLocationButton={true}
@@ -80,4 +76,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Riding;
+export default withNavigation(Riding);
