@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TouchableHighlight, StyleSheet, View, StatusBar, Text } from "react-native";
+import { Alert, TouchableOpacity, TouchableHighlight, StyleSheet, View, StatusBar, Text } from "react-native";
 import Header from "../components/Header";
 import FirstNameEnter from "../components/FirstNameEnter";
 import LastNameEnter from "../components/LastNameEnter";
@@ -19,6 +19,9 @@ function Setting(props) {
       <FirstNameEnter style={styles.firstNameEnter}></FirstNameEnter>
       <LastNameEnter style={styles.lastNameEnter}></LastNameEnter>
       <PhoneNumberInput style={styles.phoneNumberInput}></PhoneNumberInput>
+      <TouchableOpacity style={[styles.button, props.style]} onPress={() => this.userRegister2(props)}>
+          <Text style={styles.updateText}>UPDATE</Text>
+      </TouchableOpacity>
       <View style={styles.rect2}>
         <View style={styles.text2Row}>
           <Text style={styles.text2}>Rental Aggrement</Text>          
@@ -63,6 +66,21 @@ function Setting(props) {
     </View>
   );
 }
+
+userRegister2 = async (props) => {
+  const request = JSON.stringify({
+    firstName: this.state.firstName,
+    lastName: this.state.lastName,
+    email: this.state.email,
+    id: this.state.userId,
+    birthDate: this.state.birthDate
+  });
+  console.log(request);
+  const response = await fetchUtil(this.state.host + this.state.registerUserApi, request, this.state.requestJson).then((response) => {    
+    Alert.alert("Updated!")
+  });
+}
+
 
 logout = async (props) => {  
   await AsyncStorage.removeItem('token').then(() => {
@@ -112,7 +130,7 @@ const styles = StyleSheet.create({
     height: 46,
     backgroundColor: "rgba(0,0,0,1)",
     flexDirection: "row",
-    marginTop: 86
+    marginTop: 36
   },
   text2: {
     color: "rgba(155,155,155,1)",
@@ -211,6 +229,36 @@ const styles = StyleSheet.create({
     fontFamily: "roboto-regular",
     marginTop: 14,
     marginLeft: 24
+  },
+  button: {
+    backgroundColor: "rgba(33,33,33,1)",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingRight: 16,
+    paddingLeft: 16,
+    elevation: 2,
+    minWidth: 88,
+    borderRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    },
+    shadowColor: "#000",
+    shadowOpacity: 0.35,
+    shadowRadius: 5,
+    width: 242,
+    height: 44,
+    borderRadius: 18,
+    borderColor: "#000000",
+    borderWidth: 0,
+    marginTop: 20,
+    alignSelf: 'center'
+  },
+  updateText: {
+    color: "rgba(255,255,255,1)",
+    fontSize: 14,
+    fontFamily: "roboto-regular"    
   }
 });
 

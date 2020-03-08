@@ -5,8 +5,13 @@ import { withNavigation } from 'react-navigation';
 function EndRidingButton(props) {
   return (
     <TouchableOpacity style={[styles.button, props.style]} 
-    onPress={() => 
-      AsyncStorage.setItem('ridingStarted', 'false').then(() => { AsyncStorage.removeItem('ridingStartTime'); props.navigation.navigate('Main'); }).catch((error) => { console.log(error); }) }>
+    onPress={() =>       
+      AsyncStorage.setItem('ridingStarted', 'false')
+      .then(() => { 
+        AsyncStorage.removeItem('ridingStartTime'); props.navigation.navigate('PicAfterParking'); 
+        console.log("u1:"+this.state.userCoordinates);
+      })
+      .catch((error) => { console.log(error); }) }>
       <Text style={styles.text}>END RIDING</Text>
     </TouchableOpacity>
   );

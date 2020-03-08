@@ -1,32 +1,12 @@
 import React, { Component } from "react";
-import { AsyncStorage, Alert, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { withNavigation } from 'react-navigation';
 
 function ScooCodeButton(props) {
-  return (
-    <TouchableOpacity style={[styles.button, props.style]}  
-      onPress={() => Alert.alert(
-        'Scoo Locker Password',
-        '1234',
-        [
-          {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-          {text: 'OK', onPress: () => {
-            AsyncStorage.setItem('ridingStarted', 'true')
-            .then(() => {
-              AsyncStorage.setItem('ridingStartTime', JSON.stringify(new Date()));
-              console.log("Riding started!");
-              props.navigation.navigate('Riding');
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-          }},
-    
-        ],
-        { cancelable: false }
-      )}>
+  return (    
+    <View style={[styles.button, props.style]}>
       <Text style={styles.text}>ABC1</Text>
-    </TouchableOpacity>
+    </View>
   );
 }
 

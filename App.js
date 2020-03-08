@@ -15,7 +15,7 @@ import Setting from "./src/screens/Setting";
 import PicAfterParking from "./src/screens/PicAfterParking";
 import RideDetailSummary from "./src/screens/RideDetailSummary";
 
-const DrawerNavigation = createDrawerNavigator({
+const DrawerNavigation = createDrawerNavigator({  
   // Login: Login, // OK
   // Register: Register, // OK EXCL(ChangeFields & DatePickerCannotInput)
   Main: {screen: Main, navigationOptions: {
@@ -23,11 +23,11 @@ const DrawerNavigation = createDrawerNavigator({
   }}, // OK EXCL(VisibilityOfDetail & Distance)
   // ScanScoo: ScanScoo, // OK
   // Riding: Riding, // OK
-  // PicAfterParking: PicAfterParking, // NOK
+  // PicAfterParking: PicAfterParking, // OK EXCL(AddPictureToServer & CallFinishService)
   Payment: Payment, // NOK
   History: History, // OK
   // RideDetailSummary: RideDetailSummary, // OK EXCL(Feedback)
-  Setting: Setting, // OK EXCL(Save & Terms)  
+  Setting: Setting, // OK EXCL(Terms)
   // ContactUs: ContactUs // OK
 });
 
@@ -62,6 +62,7 @@ function App() {
     canLoginApi: '/user/canLogin', // OK
     feedbackApi: '/user/feedback',
     getScooterApi: '/scooter/get', // OK
+    getScooterByLabelApi: '/scooter/getByLabel', // OK
     getClosestScootersApi: '/scooter/getClosestScooters', // OK
     startRidingApi: '/riding/start', // OK
     finishRidingApi: '/riding/finish',
@@ -85,7 +86,8 @@ function App() {
       longitudeDelta: 0.0040
     },
     ridingDistnace: 0,    
-    ridingScooterBattery: 100
+    ridingScooterBattery: 100,
+    ridingId: "5e65674bc4c4d34b477cecd2"
   }
 
   if (!isLoadingComplete) {

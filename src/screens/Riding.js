@@ -10,7 +10,7 @@ import { withNavigation } from 'react-navigation';
 const baseStyles = BaseCss()
 
 function Riding(props) {
-  const headerText = "RIDING";  
+  const headerText = "RIDING NOW..";  
   return (
     <View style={styles.rect}>
       <Header headerText={headerText} style={baseStyles.header}></Header>
@@ -28,7 +28,7 @@ function Riding(props) {
             <MapView.Marker coordinate={{ latitude: 41.0082, longitude: 28.9784 }}  
             title={"Your Location"} draggable />
           </MapView>
-          <EndRidingButton style={styles.endRidingButton}></EndRidingButton>
+          <EndRidingButton props={props} style={styles.endRidingButton}></EndRidingButton>
           <RidingInformation style={styles.ridingInformation}></RidingInformation>          
         </View>
       </View>

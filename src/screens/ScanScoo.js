@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { AsyncStorage, TouchableOpacity, StyleSheet, View, Text, StatusBar } from "react-native";
+import { Alert, AsyncStorage, TouchableOpacity, StyleSheet, View, Text, StatusBar } from "react-native";
 import Header from "../components/Header";
 import ScooCodeButton from "../components/ScooCodeButton";
 import FlashButton from "../components/FlashButton";
@@ -11,27 +11,36 @@ import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import FetchUtil from "../util/FetchUtil";
+import Dialog from "react-native-dialog";
 
 function ScanScoo(props) {
   const headerText = "SCAN A SCOO";
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [scooters, setScooters] = useState({});
-  const qrScooterId = 1;
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const [scooCode, setScooCode] = useState("SCOO-4");
+  // setDialogVisible(true)
   // this.takePicture();
-  let handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
-    console.log(`Bar code with type ${type} and data ${data} has been scanned!`);
-    getScooDetailAndStartRiding(props, this.qrScooterId, scooters, setScooters);
+  let handleBarCodeScanned = ({ type, data }) => {    
+    if (!scanned) {
+      setScanned(true);
+      console.log(`Bar code with type ${type} and data ${data} has been scanned!`);
+      getScooDetailAndStartRiding(props, setScanned, data);
+    }    
   };
-  
+
   if (hasPermission === null) {
      <Text>Requesting for camera permission</Text>;
   }
   if (hasPermission === false) {
      <Text>No access to camera</Text>;
   }
-
+  closeDialog = () => {
+    setDialogVisible(false);
+  };
+  openDialog = () => {
+    setDialogVisible(true);
+  };
   return (    
     <View style={styles.rect}>    
       <View style={styles.bar}>
@@ -43,12 +52,23 @@ function ScanScoo(props) {
       <Text style={styles.price}>3 TL to unlock + 0.75/min.</Text>      
       <View style={styles.square}></View>
       <View style={styles.scooCodeButtonRow}>
-        <ScooCodeButton style={styles.scooCodeButton}></ScooCodeButton>
+        <TouchableOpacity onPress={this.openDialog}>
+          <ScooCodeButton style={styles.scooCodeButton}></ScooCodeButton>
+        </TouchableOpacity>        
         <FlashButton style={styles.flashButton}></FlashButton>
-      </View>      
-      <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={styles.barcadeScanner}/>      
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
-      <Button title={'Tap to Scan Again'} onPress={() => this.getScooDetailAndStartRiding(props, qrScooterId, scooters, setScooters)} />
+      </View>
+      <Dialog.Container visible={dialogVisible}>
+        <Dialog.Title>Enter Scoo Code</Dialog.Title>
+        <Dialog.Description>You can read scoo code at middle of QR.</Dialog.Description>
+        <Dialog.Input autoCapitalize="characters" onChangeText={(scooCode) => setScooCode(scooCode)}>SCOO-4</Dialog.Input>
+        <Dialog.Button label="Cancel" onPress={this.closeDialog} />
+        <Dialog.Button label="OK" onPress={() => {          
+          getScooDetailAndStartRiding(props, setScanned, scooCode);
+          this.closeDialog();
+        }} />
+      </Dialog.Container>
+      <BarCodeScanner onBarCodeScanned={handleBarCodeScanned} style={styles.barcadeScanner}/>
+      <Button title={'Tap to Scan Again'} onPress={() => handleBarCodeScanned} />
     </View>
   );
 }
@@ -59,37 +79,59 @@ const Button = ({ onPress, title }) => (
   </TouchableOpacity>
 );
 
-getScooDetailAndStartRiding = async (props, qrScooterId, scooters, setScooters) => {
-  const request = "id=" + qrScooterId;
-  const scooDetail = await fetchUtil(this.state.host + this.state.getScooterApi, request, this.state.requestUrl)          
-      .then((response) => { setScooters(response); })
-      .catch((error) => { console.error(error); });
-  
-  const requestRiding = JSON.stringify({
-    riding: {
-      lockStatus: "UNLOCKED",
-      scooterId: qrScooterId,
-      userId: this.state.userId
-    },
-    ridingCoordinates: {
-      latitude: scooters.latitude,
-      longitude: scooters.longitude,
-      status: "START"
-    }
-  });
-  await fetchUtil(this.state.host + this.state.startRidingApi, requestRiding, this.state.requestJson)
+function isObjectEmpty(obj){
+  return obj != null && Object.getOwnPropertyNames(obj).length >= 1
+}
+
+getScooDetailAndStartRiding = async (props, setScanned, data) => {
+  const request = "label=" + data;
+  await fetchUtil(this.state.host + this.state.getScooterByLabelApi, request, this.state.requestUrl)          
       .then((response) => { 
-        AsyncStorage.setItem('ridingStarted', 'true')
-        .then(() => {          
-          AsyncStorage.setItem('ridingStartTime', JSON.stringify(new Date()));
-          console.log("Riding started!");
-          props.navigation.navigate('Riding');
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        console.log(response);
+        startToRiding(props, response, setScanned);
       })
-      .catch((error) => { console.error(error); });  
+      .catch((error) => { console.error(error); });
+}
+
+startToRiding = async(props, scooters, setScanned) => {
+  if (isObjectEmpty(scooters)) {
+    const requestRiding = JSON.stringify({
+      riding: {
+        lockStatus: "UNLOCKED",
+        scooterId: scooters.id,
+        userId: this.state.userId
+      },
+      ridingCoordinates: {
+        latitude: scooters.lastLatitude,
+        longitude: scooters.lastLongitude,
+        status: "START"
+      }
+    });
+    await fetchUtil(this.state.host + this.state.startRidingApi, requestRiding, this.state.requestJson)
+        .then((response) => {          
+          this.state = {ridingId: response.id};          
+          Alert.alert(
+          'Scoo Locker Password',
+          scooters.lockPassword,
+          [
+            {text: 'Cancel', onPress: () => {setScanned(false); console.log('Cancel Pressed!');} },
+            {text: 'OK', onPress: () => {            
+              AsyncStorage.setItem('ridingStarted', 'true')
+              .then(() => {          
+                AsyncStorage.setItem('ridingStartTime', JSON.stringify(new Date()));
+                console.log("Riding started!");
+                props.navigation.navigate('Riding');
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+            }},    
+          ],
+          { cancelable: false }
+        )        
+        })
+        .catch((error) => { console.error(error); });
+  }
 }
 
 takePicture = async () => {
