@@ -4,7 +4,7 @@ fetchUtil = async (url, body, contentType) => {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/' + contentType,
+      'Content-Type': 'application/' + (contentType == 'json' ? 'json' : 'x-www-form-urlencoded'),
       'credentials': "omit",
     },
     body: body

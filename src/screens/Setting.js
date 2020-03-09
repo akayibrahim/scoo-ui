@@ -76,7 +76,7 @@ userRegister2 = async (props) => {
     birthDate: this.state.birthDate
   });
   console.log(request);
-  const response = await fetchUtil('/user/register', request, this.state.requestJson).then((response) => {    
+  const response = await fetchUtil('/user/register', request, 'json').then((response) => {    
     Alert.alert("Updated!")
   });
 }

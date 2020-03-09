@@ -82,7 +82,7 @@ finishRiding = async (props) => {
       ridingId: this.state.ridingId
     }
   });
-  await fetchUtil('/riding/finish', request, this.state.requestJson)          
+  await fetchUtil('/riding/finish', request, 'json')          
       .then((response) => { 
         this.state = {ridingId: 0};
         console.log(response);

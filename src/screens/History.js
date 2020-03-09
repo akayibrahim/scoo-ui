@@ -17,7 +17,7 @@ function History(props) {
   useEffect(() => {
     const ridingHistory = async () => {
       const request = "userId=" + this.state.userId;
-      await fetchUtil('/riding/history', request, this.state.requestUrl)          
+      await fetchUtil('/riding/history', request, 'url')          
       .then((response) => { 
         setData(response);
       })

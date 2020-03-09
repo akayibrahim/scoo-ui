@@ -84,7 +84,7 @@ function isObjectEmpty(obj){
 
 getScooDetailAndStartRiding = async (props, setScanned, data, setDialogVisible) => {
   const request = "label=" + data;
-  await fetchUtil('/scooter/getByLabel', request, this.state.requestUrl)          
+  await fetchUtil('/scooter/getByLabel', request, 'url')          
       .then((response) => {         
         startToRidingAlert(props, response, setScanned, setDialogVisible);
       })
@@ -122,7 +122,7 @@ startToRiding = async(props, scooters, setScanned) => {
         status: "START"
       }
     });
-    await fetchUtil('/riding/start', requestRiding, this.state.requestJson)
+    await fetchUtil('/riding/start', requestRiding, 'json')
         .then((response) => {          
           this.state = {ridingId: response.id};          
           AsyncStorage.setItem('ridingStarted', 'true')

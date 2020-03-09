@@ -18,7 +18,7 @@ function Main(props) {
   useEffect(() => {
     const closestScooters = async () => {
       const request = "latitude=1.0&longitude=1.0";
-      await fetchUtil('/scooter/getClosestScooters', request, this.state.requestUrl)          
+      await fetchUtil('/scooter/getClosestScooters', request, 'url')
           .then((response) => { setScooters(response); })
           .catch((error) => { console.error(error); });
     }

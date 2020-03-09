@@ -9,7 +9,7 @@ function VehicleDetails(props) {
   useEffect(() => {
     const getScooDetail = async () => {
       const request = "id=" + id;
-      await fetchUtil('/scooter/get', request, this.state.requestUrl)          
+      await fetchUtil('/scooter/get', request, 'url')          
           .then((response) => { setDetail(response); })
           .catch((error) => { console.error(error); });
     }

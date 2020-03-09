@@ -62,9 +62,7 @@ function App() {
     firstName: "ibrahim",
     lastName: "Akay",
     email: "email",
-    birthDate: "1987-09-27",
-    requestJson: 'json',
-    requestUrl: 'x-www-form-urlencoded',
+    birthDate: "1987-09-27",    
     userCoordinates: {
       latitude: 41.0082,
       longitude: 28.9784,
