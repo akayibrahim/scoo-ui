@@ -57,8 +57,7 @@ const AppContainer = createAppContainer(StackNavigation);
 function App() {
   const [isLoadingComplete, setLoadingComplete, userId] = useState(false);  
   this.state = {
-    userId: '1',
-    user: {},
+    userId: '1',    
     firstName: "ibrahim",
     lastName: "Akay",
     email: "email",
