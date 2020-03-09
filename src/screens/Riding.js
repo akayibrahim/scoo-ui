@@ -11,6 +11,8 @@ const baseStyles = BaseCss()
 
 function Riding(props) {
   const headerText = "RIDING NOW..";  
+  const [coordinates, setCoordinates] = useState({latitude: 41.0082, longitude: 28.9784,
+    latitudeDelta: 0.0040, longitudeDelta: 0.0040}); // TODO get gps coordinate
   return (
     <View style={styles.rect}>
       <Header headerText={headerText} style={baseStyles.header}></Header>
@@ -18,7 +20,7 @@ function Riding(props) {
         <View style={baseStyles.mapViewStack}>
         <MapView
             provider={MapView.PROVIDER_GOOGLE}
-            initialRegion={this.state.userCoordinates}
+            initialRegion={coordinates}
             customMapStyle={[]}
             style={baseStyles.mapView}
             showsMyLocationButton={true}

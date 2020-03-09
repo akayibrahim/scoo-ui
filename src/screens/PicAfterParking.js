@@ -8,6 +8,8 @@ var ImagePicker = require('expo-image-picker');
 function PicAfterParking(props) {
   const [hasPermission, setHasPermission] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);  
+  const [coordinates, setCoordinates] = useState({latitude: 41.0082, longitude: 28.9784,
+    latitudeDelta: 0.0040, longitudeDelta: 0.0040}); // TODO get gps coordinate
   if (hasPermission === null) {
     <Text>Requesting for camera permission</Text>;
   }
@@ -58,8 +60,7 @@ function PicAfterParking(props) {
             .then(() => { 
               AsyncStorage.removeItem('ridingStartTime')
               .then(() => {
-                console.log("u:"+this.state.userCoordinates);
-                finishRiding(props);
+                finishRiding(props, coordinates);
                 })
               })
               .catch((error) => { console.log(error); })
@@ -74,11 +75,11 @@ function PicAfterParking(props) {
   );
 }
 
-finishRiding = async (props) => {
+finishRiding = async (props, coordinates) => {
   const request = JSON.stringify({    
     ridingCoordinates: {
-      latitude: this.state.userCoordinates.latitude,
-      longitude: this.state.userCoordinates.longitude,
+      latitude: coordinates.latitude,
+      longitude: coordinates.longitude,
       ridingId: this.state.ridingId
     }
   });

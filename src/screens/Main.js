@@ -14,6 +14,8 @@ function Main(props) {
   const [showVehicleDetail, setShowVehicleDetail] = useState(false);
   const [id, setId] = useState(0);
   const [scooters, setScooters] = useState([]);
+  const [coordinates, setCoordinates] = useState({latitude: 41.0082, longitude: 28.9784, 
+    latitudeDelta: 0.0040, longitudeDelta: 0.0040});
   isSignin(props);
   useEffect(() => {
     const closestScooters = async () => {
@@ -22,8 +24,21 @@ function Main(props) {
           .then((response) => { setScooters(response); })
           .catch((error) => { console.error(error); });
     }
-    closestScooters();    
+    closestScooters();
   }, []);
+
+  useEffect(() => {    
+    const findCoordinates = (props) => {
+      navigator.geolocation.getCurrentPosition(
+        position => {    
+          // setCoordinates({longitude: position.longitude, latitude: position.latitude, latitudeDelta: 0.0040, longitudeDelta: 0.0040}); 
+        },
+        error => Alert.alert(error.message),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+      );
+    };
+    findCoordinates();
+  }, [false]); // TODO 
 
   return (
     <View style={styles.rect}>
@@ -33,7 +48,7 @@ function Main(props) {
         <View style={baseStyles.mapViewStack}>
           <MapView
             provider={MapView.PROVIDER_GOOGLE}
-            initialRegion={this.state.userCoordinates}
+            initialRegion={coordinates}
             customMapStyle={[]}
             style={baseStyles.mapView}
             showsMyLocationButton={true}
@@ -84,16 +99,6 @@ openPanel = () => {
 
 closePanel = () => {
   this.state = { swipeablePanelActive: false };
-};
-
-findCoordinates = (props) => {
-  navigator.geolocation.getCurrentPosition(
-    position => {
-      this.props.position = {position: {longitude: position.longitude, latitude: position.latitude}};            
-    },
-    error => Alert.alert(error.message),
-    { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-  );
 };
 
 const styles = StyleSheet.create({

@@ -61,14 +61,8 @@ function App() {
     firstName: "ibrahim",
     lastName: "Akay",
     email: "email",
-    birthDate: "1987-09-27",    
-    userCoordinates: {
-      latitude: 41.0082,
-      longitude: 28.9784,
-      latitudeDelta: 0.0040,
-      longitudeDelta: 0.0040
-    },
-    ridingDistnace: 0,    
+    birthDate: "1987-09-27",        
+    ridingDistnace: 0,
     ridingScooterBattery: 100,
     ridingId: "5e65674bc4c4d34b477cecd2"
   }
