@@ -9,7 +9,7 @@ function VehicleDetails(props) {
   useEffect(() => {
     const getScooDetail = async () => {
       const request = "id=" + id;
-      await fetchUtil(this.state.host + this.state.getScooterApi, request, this.state.requestUrl)          
+      await fetchUtil('/scooter/get', request, this.state.requestUrl)          
           .then((response) => { setDetail(response); })
           .catch((error) => { console.error(error); });
     }
@@ -47,7 +47,7 @@ function VehicleDetails(props) {
           <Text style={styles.text2}>BATTERY : % {detail.lastBattery}</Text>
           <Text style={styles.text3}>DISTANCE : 300 meter</Text>
           <Text style={styles.text}>
-            3 TL to unlock + {"\n"}0.75 TL / 1 min
+          3 TL to unlock + {"\n"}0.75 TL / 1 min
           </Text>
         </View>
       </View>

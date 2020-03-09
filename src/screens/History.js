@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, StyleSheet, View, StatusBar } from "react-native";
+import { Alert, StyleSheet, View, ScrollView, StatusBar } from "react-native";
 import Header from "../components/Header";
 import RideHistory from "../components/RideHistory";
 import NoRideHistory from "../components/NoRideHistory";
@@ -8,7 +8,7 @@ const baseStyles = BaseCss()
 
 function History(props) {
   const headerText = "HISTORY";  
-  const [data, setData] = useState({isFetching: false});
+  const [data, setData] = useState([]);
   const day = "TODAY, 16:22";
   const time = "8 DK";
   const price = "6 TL";
@@ -16,30 +16,12 @@ function History(props) {
   
   useEffect(() => {
     const ridingHistory = async () => {
-      await fetch(this.state.host + this.state.ridingHistoryApi, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'credentials': "omit",
-          },            
-          body: "userId=" + this.state.userId
-        })
-        .then((response) => {
-          if (response.status == 400) {
-            console.log(response);            
-            return;
-          }      
-          return response.json();  
-         })
-        .then((responseJson) => {
-          this.state = { history: responseJson };      
-          setData({history: responseJson, isFetching: true});
-          // console.log(responseJson);
-        })
-        .catch((error) => {      
-          console.error(error);
-        });
+      const request = "userId=" + this.state.userId;
+      await fetchUtil('/riding/history', request, this.state.requestUrl)          
+      .then((response) => { 
+        setData(response);
+      })
+      .catch((error) => { console.error(error); });
     }
     ridingHistory();
   }, []);
@@ -48,11 +30,13 @@ function History(props) {
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
       <Header headerText={headerText} isBack={true} backScreen={'Main'} style={baseStyles.header}></Header>
-      <RideHistory style={styles.rideHistory} day={day} time={time} price={price} distance={distance}></RideHistory>
-      { 
-        this.state.history == null ? <NoRideHistory style={styles.noRideHistory}></NoRideHistory> :
-        this.state.history.map((hist, i) => <RideHistory key={i} style={styles.rideHistory} day={hist.startDateTime} time={hist.totalTime} price={hist.totalPrice} distance={hist.totalDistance}></RideHistory>)
-      }
+      <ScrollView>
+        <RideHistory style={styles.rideHistory} day={day} time={time} price={price} distance={distance}></RideHistory>
+        { 
+          data == null ? <NoRideHistory style={styles.noRideHistory}></NoRideHistory> :
+          data.map((hist, i) => <RideHistory key={i} style={styles.rideHistory} day={hist.startDateTime} time={hist.totalTime} price={hist.totalPrice} distance={hist.totalDistance}></RideHistory>)
+        }
+      </ScrollView>      
     </View>
   );
 }

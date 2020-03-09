@@ -15,7 +15,7 @@ function Payment(props) {
       <Text style={styles.paymentMethodText}>Payment Methods</Text>
       <AddCreditCard style={styles.addCreditCard}></AddCreditCard>            
       <CrediCardInformation style={styles.crediCardInformation}></CrediCardInformation>
-      <Text style={styles.priceText}>3 TL to unlock + 0.75/min.</Text>
+      <Text style={styles.priceText}>3 TL to unlock0.75/min.</Text>
     </View>
   );
 }

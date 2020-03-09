@@ -20,7 +20,7 @@ userRegister2 = async (props) => {
     birthDate: this.state.birthDate
   });
   console.log(request);
-  const response = await fetchUtil(this.state.host + this.state.registerUserApi, request, this.state.requestJson).then((response) => {
+  const response = await fetchUtil('/user/register', request, this.state.requestJson).then((response) => {
     setToken('true');
     props.navigation.navigate('Main');
   });
@@ -34,7 +34,7 @@ const setToken = async (token) => {
 };
 
 userRegisterOld = async (props) => {
-  fetch(this.state.host + this.state.registerUserApi, {
+  fetch('/user/register', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

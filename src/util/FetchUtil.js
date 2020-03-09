@@ -1,6 +1,6 @@
 
 fetchUtil = async (url, body, contentType) => {
-  return fetch(url, {
+  return fetch('http://18.222.250.64:8080' + url, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

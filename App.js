@@ -57,21 +57,7 @@ const AppContainer = createAppContainer(StackNavigation);
 function App() {
   const [isLoadingComplete, setLoadingComplete, userId] = useState(false);  
   this.state = {
-    host: 'http://18.222.250.64:8080',
-    registerUserApi: '/user/register', // OK
-    canLoginApi: '/user/canLogin', // OK
-    feedbackApi: '/user/feedback',
-    getScooterApi: '/scooter/get', // OK
-    getScooterByLabelApi: '/scooter/getByLabel', // OK
-    getClosestScootersApi: '/scooter/getClosestScooters', // OK
-    startRidingApi: '/riding/start', // OK
-    finishRidingApi: '/riding/finish',
-    ridingHistoryApi: '/riding/history', // OK
-    ridingDetail: '/riding/detail',
-    addPictureApi: '/riding/addPicture',
-    problemReportApi: '/problem/report',
     userId: '1',
-    history: [],
     user: {},
     firstName: "ibrahim",
     lastName: "Akay",
