@@ -18,7 +18,7 @@ function ScanScoo(props) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [dialogVisible, setDialogVisible] = useState(false);
-  const [scooCode, setScooCode] = useState("SCOO-4");  
+  const [scooCode, setScooCode] = useState("SCOO-4");
   // setDialogVisible(true)
   // this.takePicture();
   let handleBarCodeScanned = ({ type, data }) => {    
@@ -123,13 +123,16 @@ startToRiding = async(props, scooters, setScanned) => {
       }
     });
     await fetchUtil('/riding/start', requestRiding, 'json')
-        .then((response) => {          
-          this.state = {ridingId: response.id};          
-          AsyncStorage.setItem('ridingStarted', 'true')
-          .then(() => {          
-            AsyncStorage.setItem('ridingStartTime', JSON.stringify(new Date()));
-            console.log("Riding started!");
+        .then((response) => {
+          const riding = {
+            ridingStarted: true,
+            ridingId: response.id,
+            ridingStartTime: JSON.stringify(new Date())
+          };          
+          AsyncStorage.setItem('ridingInfo', JSON.stringify(riding))
+          .then(() => {
             props.navigation.navigate('Riding');
+            console.log("Riding started!");
           })
           .catch((error) => {
             console.log(error);

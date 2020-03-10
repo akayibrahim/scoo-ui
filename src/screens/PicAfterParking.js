@@ -56,12 +56,9 @@ function PicAfterParking(props) {
         selectedImage != null ?
         <TouchableOpacity style={[styles.button, props.style]}
           onPress={() => 
-            AsyncStorage.setItem('ridingStarted', 'false')
+            AsyncStorage.removeItem('ridingInfo')
             .then(() => { 
-              AsyncStorage.removeItem('ridingStartTime')
-              .then(() => {
-                finishRiding(props, coordinates);
-                })
+              finishRiding(props, coordinates);
               })
               .catch((error) => { console.log(error); })
           }

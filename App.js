@@ -61,10 +61,7 @@ function App() {
     firstName: "ibrahim",
     lastName: "Akay",
     email: "email",
-    birthDate: "1987-09-27",        
-    ridingDistnace: 0,
-    ridingScooterBattery: 100,
-    ridingId: "5e65674bc4c4d34b477cecd2"
+    birthDate: "1987-09-27"
   }
 
   if (!isLoadingComplete) {

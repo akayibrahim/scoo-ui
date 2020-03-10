@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19003,
-  "packagerPid": 19579,
-  "expoServerNgrokUrl": "https://fc-vai.anonymous.scoo-ui.exp.direct",
-  "packagerNgrokUrl": "https://packager.fc-vai.anonymous.scoo-ui.exp.direct",
-  "ngrokPid": 19596,
+  "packagerPid": 23283,
+  "expoServerNgrokUrl": "https://d6-4zb.anonymous.scoo-ui.exp.direct",
+  "packagerNgrokUrl": "https://packager.d6-4zb.anonymous.scoo-ui.exp.direct",
+  "ngrokPid": 23291,
   "webpackServerPort": null
 }

@@ -35,11 +35,11 @@ const isSignin = async (props) => {
   });
   console.log(value);
   if (value == 'true') {
-    const ridingStarted = await AsyncStorage.getItem('ridingStarted')
+    const ridingInfo = await AsyncStorage.getItem('ridingInfo')
     .catch((error) => {
       console.log(error);
     });
-    if (ridingStarted == 'true') {
+    if (JSON.parse(ridingInfo).ridingStarted == true) {
       props.navigation.navigate('Riding');
     } else {
       props.navigation.navigate('Main');      

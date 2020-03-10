@@ -6,9 +6,9 @@ function EndRidingButton(props) {
   return (
     <TouchableOpacity style={[styles.button, props.style]} 
     onPress={() =>       
-      AsyncStorage.setItem('ridingStarted', 'false')
+      AsyncStorage.removeItem('ridingInfo')
       .then(() => { 
-        AsyncStorage.removeItem('ridingStartTime'); props.navigation.navigate('PicAfterParking'); 
+        props.navigation.navigate('PicAfterParking'); 
       })
       .catch((error) => { console.log(error); }) }>
       <Text style={styles.text}>END RIDING</Text>

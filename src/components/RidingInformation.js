@@ -5,8 +5,10 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 
 function RidingInformation(props) {  
-  const [duration, setDuration] = useState("");  
-  
+  const [duration, setDuration] = useState("");
+  const [distance, setDistance] = useState(0);
+  const [battery, setBattery] = useState(90);
+
   useEffect(() => {
     const i_id = setInterval(() => {
       getAsyncDuration(setDuration);
@@ -21,11 +23,11 @@ function RidingInformation(props) {
       <View style={styles.rect2}>
         <View style={styles.iconRow}>
           <FontAwesomeIcon name="map-marker" style={styles.icon}></FontAwesomeIcon>
-          <Text style={styles.text}>{this.state.ridingDistnace}</Text>
+          <Text style={styles.text}>{distance}</Text>
           <MaterialCommunityIconsIcon name="clock" style={styles.icon2}></MaterialCommunityIconsIcon>
           <Text style={styles.text2}>{duration}</Text>
           <IoniconsIcon name="ios-battery-charging" style={styles.icon3}></IoniconsIcon>
-          <Text style={styles.text3}>{this.state.ridingScooterBattery}%</Text>
+          <Text style={styles.text3}>{battery}%</Text>
         </View>
       </View>
     </View>
@@ -37,11 +39,11 @@ function pad(n) {
 }
 
 getAsyncDuration = async (setDuration) => {
-  const value = await AsyncStorage.getItem('ridingStartTime')
+  const value = await AsyncStorage.getItem('ridingInfo')
   .catch((error) => {
     console.log(error);
   });
-  const startDate = Math.floor(new Date(JSON.parse(value)).getTime());
+  const startDate = Math.floor(new Date(JSON.parse(JSON.parse(value).ridingStartTime)).getTime());
   const now = Math.floor(new Date().getTime());
   var diff = Math.floor((now - startDate) / (60 * 24));  
   var time = pad(Math.floor(diff /60)) + ':' +pad(diff % 60 );
