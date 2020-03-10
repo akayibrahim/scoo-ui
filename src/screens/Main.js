@@ -82,7 +82,7 @@ const isSignin = async (props) => {
     .catch((error) => {
       console.log(error);
     });
-    if (JSON.parse(ridingInfo).ridingStarted == true) {
+    if (JSON.parse(ridingInfo) != null && JSON.parse(ridingInfo).ridingStarted == true) {
       props.navigation.navigate('Riding');
     } else {
       props.navigation.navigate('Main');

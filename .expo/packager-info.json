@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19003,
-  "packagerPid": 23283,
-  "expoServerNgrokUrl": "https://d6-4zb.anonymous.scoo-ui.exp.direct",
-  "packagerNgrokUrl": "https://packager.d6-4zb.anonymous.scoo-ui.exp.direct",
-  "ngrokPid": 23291,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }

@@ -127,7 +127,7 @@ startToRiding = async(props, scooters, setScanned) => {
           const riding = {
             ridingStarted: true,
             ridingId: response.id,
-            ridingStartTime: JSON.stringify(new Date())
+            ridingStartTime: new Date()
           };          
           AsyncStorage.setItem('ridingInfo', JSON.stringify(riding))
           .then(() => {

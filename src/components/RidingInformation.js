@@ -42,8 +42,10 @@ getAsyncDuration = async (setDuration) => {
   const value = await AsyncStorage.getItem('ridingInfo')
   .catch((error) => {
     console.log(error);
-  });
-  const startDate = Math.floor(new Date(JSON.parse(JSON.parse(value).ridingStartTime)).getTime());
+  });  
+  if (JSON.parse(value) == null)
+    return;
+  const startDate = Math.floor(new Date(JSON.parse(value).ridingStartTime).getTime());
   const now = Math.floor(new Date().getTime());
   var diff = Math.floor((now - startDate) / (60 * 24));  
   var time = pad(Math.floor(diff /60)) + ':' +pad(diff % 60 );
