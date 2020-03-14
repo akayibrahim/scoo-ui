@@ -21,8 +21,8 @@ function RideDetailSummary(props) {
               initialRegion={{
                 latitude: 41.0082,
                 longitude: 28.9784,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421
+                latitudeDelta: 0.0050,
+                longitudeDelta: 0.0050
               }}
               customMapStyle={[]}
               style={baseStyles.mapView}              
@@ -68,9 +68,9 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(15,15,15,1)"
   },
   rideDetailMetrics: {
-    width: '75%',
+    width: '80%',
     height: 80,
-    marginTop: 50,
+    marginTop: 35,
     alignSelf: 'center'
   },
   feedback1: {
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   iconRow: {
     height: 40,
     flexDirection: "row",
-    marginTop: 40,
+    marginTop: 30,
     alignSelf: 'center'
   },
   rectMetricsAndFeedback: {    

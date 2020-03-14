@@ -36,7 +36,7 @@ function Register(props) {
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
       <Header headerText={headerText} isBack={true} backScreen={'Login'} style={baseStyles.header}></Header>
-      <RegisterFields id={id} firstName={firstName} lastName={lastName} birthDate={birthDate} email={email} style={styles.register}></RegisterFields>
+      <RegisterFields saveUpdateText={"SAVE"} id={id} firstName={firstName} lastName={lastName} birthDate={birthDate} email={email} style={styles.register}></RegisterFields>
     </View>
   );
 }

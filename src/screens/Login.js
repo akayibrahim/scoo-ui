@@ -30,7 +30,7 @@ function Login(props) {
 
 const isSignin = async (props) => {  
   await AsyncStorage.getItem('userInfo')
-  .then((userInfo) => {
+  .then((userInfo) => {    
     if (userInfo != null && JSON.parse(userInfo).id != null) {
       AsyncStorage.getItem('ridingInfo')
       .then((ridingInfo) => {

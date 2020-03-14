@@ -8,14 +8,14 @@ function Header(props) {
   const {headerText, isBack, backScreen} = props;
   return (
     <View style={[styles.rect, props.style]}>
-      <View style={styles.buttonRow}>
+      <View style={styles.menuRow}>
         {isBack == true ?
-          <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate(backScreen)}>
-            <IoniconsIcon name="md-arrow-back" style={styles.icon}></IoniconsIcon>
+          <TouchableOpacity style={styles.menuIcon} onPress={() => props.navigation.navigate(backScreen)}>
+            <IoniconsIcon name="md-arrow-back" style={styles.leftIcon}></IoniconsIcon>
           </TouchableOpacity>
         : 
-          <TouchableOpacity style={styles.button} onPress={() => props.navigation.openDrawer()}>          
-            <IoniconsIcon name="md-menu" style={styles.icon}></IoniconsIcon>
+          <TouchableOpacity style={styles.menuIcon} onPress={() => props.navigation.openDrawer()}>          
+            <IoniconsIcon name="md-menu" style={styles.leftIcon}></IoniconsIcon>
           </TouchableOpacity>          
         }
         
@@ -26,10 +26,10 @@ function Header(props) {
           </Text>
       </View>
       <View style={styles.buttonRowFiller}></View>
-      <TouchableOpacity style={styles.button2} onPress={() => Linking.openURL('https://wa.me/905377885933')}>
+      <TouchableOpacity style={styles.wpButton} onPress={() => Linking.openURL('https://wa.me/905377885933')}>
         <MaterialCommunityIconsIcon
           name="whatsapp"
-          style={styles.icon2}
+          style={styles.wpIcon}
         ></MaterialCommunityIconsIcon>
       </TouchableOpacity>
     </View>
@@ -52,10 +52,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 1.2
   },
-  button: {
-    marginTop: 10
+  menuIcon: {
+    marginTop: 9
   },
-  icon: {
+  leftIcon: {
     backgroundColor: "transparent",
     color: "#FFFFFF",
     fontFamily: "roboto-regular",
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     flex: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10
+    marginTop: 9
   },
   text: {
     backgroundColor: "transparent",
@@ -74,22 +74,22 @@ const styles = StyleSheet.create({
     fontFamily: "roboto-700",
     lineHeight: 20
   },
-  buttonRow: {
+  menuRow: {
     height: 46,
     flexDirection: "row",
     marginLeft: 5,
-    marginTop: 10
+    marginTop: 9
   },
   buttonRowFiller: {
     flex: 1,
     flexDirection: "row"
   },
-  button2: {
+  wpButton: {
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 9,
     marginRight: 5
   },
-  icon2: {
+  wpIcon: {
     backgroundColor: "transparent",
     color: "#FFFFFF",
     fontFamily: "roboto-regular",

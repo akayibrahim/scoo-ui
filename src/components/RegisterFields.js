@@ -21,7 +21,7 @@ function RegisterFields(props) {
       <TextInput placeholderTextColor = "gray" placeholder="Email" style={styles.email}
         onChangeText={(email) => setEmail(email)}>{props.email}</TextInput>
       <TouchableOpacity style={styles.button} onPress={() => this.userRegister2(props, firstName, lastName, email, birthDate, id)}>
-        <Text style={styles.text}>SAVE</Text>
+        <Text style={styles.text}>{props.saveUpdateText}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -51,7 +51,7 @@ userRegister2 = async (props, firstName, lastName, email, birthDate, id) => {
     //birthDate: birthDate
   });  
   await fetchUtil('/user/register', request, 'json')
-  .then((response) => {
+  .then((response) => {    
     const user = {
       id: response.id,
       firstName: response.firstName,

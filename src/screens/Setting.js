@@ -44,7 +44,7 @@ function Setting(props) {
       <StatusBar barStyle="light-content"></StatusBar>
       <Header headerText={headerText} isBack={true} backScreen={'Main'} style={baseStyles.header}></Header>            
       <View style={styles.rect1}>
-        <RegisterFields id={id} firstName={firstName} lastName={lastName} birthDate={birthDate} email={email} tyle={styles.register}></RegisterFields>        
+        <RegisterFields saveUpdateText={"UPDATE"} id={id} firstName={firstName} lastName={lastName} birthDate={birthDate} email={email} tyle={styles.register}></RegisterFields>        
       </View>
       <View style={styles.rect2}>
         <View style={styles.text2Row}>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 285,
     flexDirection: "row",
-    marginTop: 36
+    marginTop: 10
   },
   register: {
     flex: 1,

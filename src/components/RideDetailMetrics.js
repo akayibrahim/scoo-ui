@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     height: 20,
     flexDirection: "row",
     marginTop: 45,
-    marginLeft: 5,
+    marginLeft: 0,
     marginRight: 4
   },
   text4: {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: "roboto-700",
     marginTop: -52,
-    marginLeft: 5
+    marginLeft: 0
   }
 });
 
