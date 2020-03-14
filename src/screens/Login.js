@@ -29,23 +29,25 @@ function Login(props) {
 }
 
 const isSignin = async (props) => {  
-  const value = await AsyncStorage.getItem('token')
+  await AsyncStorage.getItem('userInfo')
+  .then((userInfo) => {
+    if (userInfo != null && JSON.parse(userInfo).id != null) {
+      AsyncStorage.getItem('ridingInfo')
+      .then((ridingInfo) => {
+        if (JSON.parse(ridingInfo) != null && JSON.parse(ridingInfo).ridingStarted == true) {
+          props.navigation.navigate('Riding');
+        } else {
+          props.navigation.navigate('Main');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });        
+    }
+  })
   .catch((error) => {
     console.log(error);
-  });
-  console.log(value);
-  if (value == 'true') {
-    const ridingInfo = await AsyncStorage.getItem('ridingInfo')
-    .catch((error) => {
-      console.log(error);
-    });
-    if (JSON.parse(ridingInfo).ridingStarted == true) {
-      props.navigation.navigate('Riding');
-    } else {
-      props.navigation.navigate('Main');      
-    }    
-    return;
-  }    
+  });  
 };
 
 const styles = StyleSheet.create({

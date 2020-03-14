@@ -1,89 +1,87 @@
-import React, { Component } from "react";
-import { Alert, TouchableOpacity, TouchableHighlight, StyleSheet, View, StatusBar, Text } from "react-native";
+import React, { Component, useState, useEffect} from "react";
+import { AsyncStorage, Alert, TouchableOpacity, TouchableHighlight, StyleSheet, View, StatusBar, Text } from "react-native";
 import Header from "../components/Header";
-import FirstNameEnter from "../components/FirstNameEnter";
-import LastNameEnter from "../components/LastNameEnter";
-import PhoneNumberInput from "../components/PhoneNumberInput";
+import RegisterFields from "../components/RegisterFields";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import BaseCss from '../styles/BaseCss.js';
-import { AsyncStorage } from "react-native";
 const baseStyles = BaseCss()
 
 function Setting(props) {
   const headerText = "SETTING";
+  const [userInfo, setUserInfo] = useState({});
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [birthDate, setBirthDate] = useState();
+  const [email, setEmail] = useState();
+  const [id, setId] = useState();
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      await AsyncStorage.getItem('userInfo')
+      .then((response) => {
+        const resParse = JSON.parse(response);        
+        if (response != null && resParse.id != null) {
+          setUserInfo(resParse);
+          setFirstName(resParse.firstName);
+          setLastName(resParse.lastName);
+          setBirthDate(resParse.birthDate);
+          setEmail(resParse.email);
+          setId(resParse.id);
+        } else {
+          props.navigation.navigate('Login');
+        }        
+      })
+      .catch((error) => {
+        console.log(error);
+        props.navigation.navigate('Login');
+      });
+    }
+    getUserInfo();
+  }, []);
+
   return (
     <View style={styles.rect}>
       <StatusBar barStyle="light-content"></StatusBar>
-      <Header headerText={headerText} isBack={true} backScreen={'Main'} style={baseStyles.header}></Header>
-      <Text style={styles.text}>1.0.0.v</Text>
-      <FirstNameEnter style={styles.firstNameEnter}></FirstNameEnter>
-      <LastNameEnter style={styles.lastNameEnter}></LastNameEnter>
-      <PhoneNumberInput style={styles.phoneNumberInput}></PhoneNumberInput>
-      <TouchableOpacity style={[styles.button, props.style]} onPress={() => this.userRegister2(props)}>
-          <Text style={styles.updateText}>UPDATE</Text>
-      </TouchableOpacity>
+      <Header headerText={headerText} isBack={true} backScreen={'Main'} style={baseStyles.header}></Header>            
+      <View style={styles.rect1}>
+        <RegisterFields id={id} firstName={firstName} lastName={lastName} birthDate={birthDate} email={email} tyle={styles.register}></RegisterFields>        
+      </View>
       <View style={styles.rect2}>
         <View style={styles.text2Row}>
           <Text style={styles.text2}>Rental Aggrement</Text>          
         </View>
-        <MaterialIconsIcon
-            name="chevron-right"
-            style={styles.icon}
-          ></MaterialIconsIcon>
+        <MaterialIconsIcon name="chevron-right" style={styles.icon}></MaterialIconsIcon>
       </View>
       <View style={styles.rect3}>
         <View style={styles.text3Row}>
           <Text style={styles.text3}>Charger Aggrement</Text>          
         </View>
-        <MaterialIconsIcon
-            name="chevron-right"
-            style={styles.icon}
-          ></MaterialIconsIcon>
+        <MaterialIconsIcon name="chevron-right" style={styles.icon}></MaterialIconsIcon>
       </View>
       <View style={styles.rect4}>
         <View style={styles.text4Row}>
           <Text style={styles.text4}>Term Of Service</Text>          
         </View>
-        <MaterialIconsIcon
-            name="chevron-right"
-            style={styles.icon}
-          ></MaterialIconsIcon>
+        <MaterialIconsIcon name="chevron-right" style={styles.icon}></MaterialIconsIcon>
       </View>
       <View style={styles.rect5}>
         <View style={styles.text5Row}>
           <Text style={styles.text5}>Privacy Policy</Text>          
         </View>
-        <MaterialIconsIcon
-            name="chevron-right"
-            style={styles.icon}
-          ></MaterialIconsIcon>
+        <MaterialIconsIcon name="chevron-right" style={styles.icon}></MaterialIconsIcon>
       </View>
       <TouchableHighlight onPress={() => logout(props)}>
         <View style={styles.rect6}>
           <Text style={styles.text6}>Log Out</Text>
         </View>
       </TouchableHighlight>      
+      <Text style={styles.text}>1.0.0.v</Text>
     </View>
   );
 }
 
-userRegister2 = async (props) => {
-  const request = JSON.stringify({
-    firstName: this.state.firstName,
-    lastName: this.state.lastName,
-    email: this.state.email,
-    id: this.state.userId,
-    birthDate: this.state.birthDate
-  });
-  console.log(request);
-  const response = await fetchUtil('/user/register', request, 'json').then((response) => {    
-    Alert.alert("Updated!")
-  });
-}
-
-
 logout = async (props) => {  
-  await AsyncStorage.removeItem('token').then(() => {
+  await AsyncStorage.removeItem('userInfo').then(() => {
     console.log("logout");
     props.navigation.navigate('Login');
   });
@@ -101,29 +99,17 @@ const styles = StyleSheet.create({
     marginTop: 667,
     textAlign: 'center'
   },
-  firstNameEnter: {
-    width: '90%',
-    height: 43,
-    borderColor: "rgba(255,255,255,1)",
-    borderWidth: 1,
-    marginTop: -619,
-    marginLeft: 22
+  rect1: {
+    width: '100%',
+    height: 285,
+    flexDirection: "row",
+    marginTop: 36
   },
-  lastNameEnter: {
-    width: '90%',
-    height: 43,
-    borderColor: "rgba(255,255,255,1)",
-    borderWidth: 1,
-    marginTop: 27,
-    marginLeft: 22
-  },
-  phoneNumberInput: {
-    width: '90%',
-    height: 43,
-    borderColor: "rgba(255,255,255,1)",
-    borderWidth: 1,
-    marginTop: 27,
-    marginLeft: 22
+  register: {
+    flex: 1,
+    backgroundColor: "transparent",
+    borderColor: "#D9D5DC",
+    borderBottomWidth: 1,    
   },
   rect2: {
     width: '100%',

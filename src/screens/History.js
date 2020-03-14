@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, StyleSheet, View, ScrollView, StatusBar } from "react-native";
+import { AsyncStorage, StyleSheet, View, ScrollView, StatusBar } from "react-native";
 import Header from "../components/Header";
 import RideHistory from "../components/RideHistory";
 import NoRideHistory from "../components/NoRideHistory";
@@ -12,18 +12,34 @@ function History(props) {
   const day = "TODAY, 16:22";
   const time = "8 DK";
   const price = "6 TL";
-  const distance = "2 KM";  
-  
+  const distance = "2 KM";    
+  const [userInfo, setUserInfo] = useState({});
+
   useEffect(() => {
     const ridingHistory = async () => {
-      const request = "userId=" + this.state.userId;
+      const request = "userId=" + userInfo.id;
       await fetchUtil('/riding/history', request, 'url')          
       .then((response) => { 
         setData(response);
       })
       .catch((error) => { console.error(error); });
-    }
-    ridingHistory();
+    };
+    const getUserInfo = async () => {
+      await AsyncStorage.getItem('userInfo')
+      .then((response) => {
+        if (response == null) {
+          props.navigation.navigate('Login');
+        } else {
+          setUserInfo(JSON.parse(response));
+          ridingHistory();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        props.navigation.navigate('Login');
+      });
+    };
+    getUserInfo();
   }, []);
 
   return (    

@@ -19,13 +19,31 @@ function ScanScoo(props) {
   const [scanned, setScanned] = useState(false);
   const [dialogVisible, setDialogVisible] = useState(false);
   const [scooCode, setScooCode] = useState("SCOO-4");
-  // setDialogVisible(true)
-  // this.takePicture();
+  const [userInfo, setUserInfo] = useState({});
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      await AsyncStorage.getItem('userInfo')
+      .then((response) => {
+        if (response != null) {
+          setUserInfo(JSON.parse(response));
+        } else {
+          props.navigation.navigate('Login');
+        }        
+      })
+      .catch((error) => {
+        console.log(error);
+        props.navigation.navigate('Login');
+      });
+    }
+    getUserInfo();
+  }, []);
+
   let handleBarCodeScanned = ({ type, data }) => {    
     if (!scanned) {
       setScanned(true);
       console.log(`Bar code with type ${type} and data ${data} has been scanned!`);
-      getScooDetailAndStartRiding(props, setScanned, data, setDialogVisible);
+      getScooDetailAndStartRiding(props, setScanned, data, setDialogVisible, userInfo);
     }    
   };
 
@@ -63,7 +81,7 @@ function ScanScoo(props) {
         <Dialog.Input autoCapitalize="characters" onChangeText={(scooCode) => setScooCode(scooCode)}>SCOO-4</Dialog.Input>
         <Dialog.Button label="Cancel" onPress={this.closeDialog} />
         <Dialog.Button label="OK" onPress={() => {                    
-          getScooDetailAndStartRiding(props, setScanned, scooCode, setDialogVisible);
+          getScooDetailAndStartRiding(props, setScanned, scooCode, setDialogVisible, userInfo);
         }} />
       </Dialog.Container>
       <BarCodeScanner onBarCodeScanned={handleBarCodeScanned} style={styles.barcadeScanner}/>
@@ -82,16 +100,16 @@ function isObjectEmpty(obj){
   return obj != null && Object.getOwnPropertyNames(obj).length >= 1
 }
 
-getScooDetailAndStartRiding = async (props, setScanned, data, setDialogVisible) => {
+getScooDetailAndStartRiding = async (props, setScanned, data, setDialogVisible, userInfo) => {
   const request = "label=" + data;
   await fetchUtil('/scooter/getByLabel', request, 'url')          
       .then((response) => {         
-        startToRidingAlert(props, response, setScanned, setDialogVisible);
+        startToRidingAlert(props, response, setScanned, setDialogVisible, userInfo);
       })
       .catch((error) => { console.error(error); });
 }
 
-startToRidingAlert = async(props, scooters, setScanned, setDialogVisible) => {
+startToRidingAlert = async(props, scooters, setScanned, setDialogVisible, userInfo) => {
   if (isObjectEmpty(scooters)) {
     Alert.alert(
       'Scoo Locker Password',
@@ -99,7 +117,7 @@ startToRidingAlert = async(props, scooters, setScanned, setDialogVisible) => {
       [
         {text: 'Cancel', onPress: () => {setScanned(false); console.log('Cancel Pressed!');} },
         {text: 'OK', onPress: () => {
-          startToRiding(props, scooters, setScanned)
+          startToRiding(props, scooters, setScanned, userInfo)
           setDialogVisible(false);
         }},    
       ],
@@ -108,13 +126,13 @@ startToRidingAlert = async(props, scooters, setScanned, setDialogVisible) => {
   }
 }
 
-startToRiding = async(props, scooters, setScanned) => {
+startToRiding = async(props, scooters, setScanned, userInfo) => {
   if (isObjectEmpty(scooters)) {
     const requestRiding = JSON.stringify({
       riding: {
         lockStatus: "UNLOCKED",
         scooterId: scooters.id,
-        userId: this.state.userId
+        userId: userInfo.id
       },
       ridingCoordinates: {
         latitude: scooters.lastLatitude,
@@ -161,35 +179,6 @@ getPermissionAsync = async () => {
     }
   }
 };
-
-startRiding = async (props) => {      
-  fetch('/riding/start', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'credentials': "omit",
-      },
-      body: JSON.stringify({   
-        "riding": {
-          "scooterId": "1",
-          "userId": "1"
-        },
-        "ridingCoordinates": {
-          "latitude": 32.0000,
-          "longitude": 21.3233
-        }
-      })
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson);
-      this.state = { user: responseJson };      
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
 
 const styles = StyleSheet.create({
   rect: {

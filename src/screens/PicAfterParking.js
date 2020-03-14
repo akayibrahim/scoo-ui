@@ -53,7 +53,7 @@ function PicAfterParking(props) {
         <Icon name="monochrome-photos" style={styles.icon}></Icon>
       </TouchableOpacity>
       {
-        selectedImage != null ?
+        selectedImage != null || true ?
         <TouchableOpacity style={[styles.button, props.style]}
           onPress={() => 
             AsyncStorage.removeItem('ridingInfo')
@@ -63,7 +63,7 @@ function PicAfterParking(props) {
               .catch((error) => { console.log(error); })
           }
           >
-          <Text style={styles.text}>FINISH</Text>       
+          <Text style={styles.text}>FINISH</Text>
         </TouchableOpacity>
       : 
       null

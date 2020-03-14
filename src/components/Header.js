@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     flex: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 5
+    marginTop: 10
   },
   text: {
     backgroundColor: "transparent",
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     height: 46,
     flexDirection: "row",
     marginLeft: 5,
-    marginTop: 5
+    marginTop: 10
   },
   buttonRowFiller: {
     flex: 1,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   button2: {
     alignItems: "center",
-    marginTop: 5,
+    marginTop: 10,
     marginRight: 5
   },
   icon2: {

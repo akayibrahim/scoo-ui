@@ -23,7 +23,7 @@ const DrawerNavigation = createDrawerNavigator({
   }}, // OK EXCL(VisibilityOfDetail & Distance)
   // ScanScoo: ScanScoo, // OK
   // Riding: Riding, // OK
-  // PicAfterParking: PicAfterParking, // OK EXCL(AddPictureToServer & CallFinishService)
+  // PicAfterParking: PicAfterParking, // OK EXCL(AddPictureToServer)
   Payment: Payment, // NOK
   History: History, // OK
   // RideDetailSummary: RideDetailSummary, // OK EXCL(Feedback)
@@ -55,15 +55,7 @@ const StackNavigation = createStackNavigator(
 const AppContainer = createAppContainer(StackNavigation);
 
 function App() {
-  const [isLoadingComplete, setLoadingComplete, userId] = useState(false);  
-  this.state = {
-    userId: '1',    
-    firstName: "ibrahim",
-    lastName: "Akay",
-    email: "email",
-    birthDate: "1987-09-27"
-  }
-
+  const [isLoadingComplete, setLoadingComplete] = useState(false);
   if (!isLoadingComplete) {
     return (
       <AppLoading

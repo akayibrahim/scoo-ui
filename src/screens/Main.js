@@ -73,24 +73,26 @@ function Main(props) {
 }
 
 const isSignin = async (props) => {  
-  const value = await AsyncStorage.getItem('token')
+  await AsyncStorage.getItem('userInfo')
+  .then((userInfo) => {    
+    if (userInfo != null && JSON.parse(userInfo).id != null) {
+      AsyncStorage.getItem('ridingInfo')
+      .then((ridingInfo) => {        
+        if (JSON.parse(ridingInfo) != null && JSON.parse(ridingInfo).ridingStarted == true) {
+          props.navigation.navigate('Riding');          
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });      
+    } else {
+      props.navigation.navigate('Login');
+    } 
+  })
   .catch((error) => {
     console.log(error);
-  });  
-  if (value == 'true') {
-    const ridingInfo = await AsyncStorage.getItem('ridingInfo')
-    .catch((error) => {
-      console.log(error);
-    });
-    if (JSON.parse(ridingInfo) != null && JSON.parse(ridingInfo).ridingStarted == true) {
-      props.navigation.navigate('Riding');
-    } else {
-      props.navigation.navigate('Main');
-    }        
-  } else {
     props.navigation.navigate('Login');
-  }
-  return;
+  });  
 };
 
 openPanel = () => {
