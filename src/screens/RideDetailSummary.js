@@ -30,7 +30,7 @@ function RideDetailSummary(props) {
             <MapViewDirections
                 origin={coordinates[0]}
                 destination={coordinates[1]}
-                apikey={"AIzaSyBABRYnBT8pbp7fgN8pEYEC9DeJhzH8m9I"}
+                apikey={"GOOGLE_API_KEY"}
                 strokeWidth={3}
                 strokeColor="hotpink"
               />
