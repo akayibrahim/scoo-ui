@@ -2,6 +2,8 @@
 
 SCOo is a mobile application designed to provide a solution for efficient and sustainable transportation within university campuses. It aims to revolutionize the way students, faculty, and staff travel within campus grounds, ultimately reducing the carbon footprint, enhancing convenience, and fostering a sense of community.
 
+<img width="950" alt="image" src="https://user-images.githubusercontent.com/6277451/234097352-5a182b61-9d1a-4895-807c-24696f660131.png">
+
 ## Business Case
 
 With the increasing number of students and staff in university campuses, traditional transportation methods such as personal vehicles and shuttles have led to congestion, parking issues, and increased greenhouse gas emissions. SCOo addresses these challenges by offering an innovative and eco-friendly solution to enhance mobility and connectivity on campus.
